@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Keepalived - 高可用解决方案 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Lsof - 列出打开的文件" href="lsof.html" />
+    <link rel="prev" title="Crontab - 周期性任务" href="crontab.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Keepalived - 高可用解决方案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#global-defs">global_defs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vrrp-script">vrrp_script</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vrrp-instance">vrrp_instance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Keepalived - 高可用解决方案</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/keepalived.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="keepalived">
+<span id="index-0"></span><h1>Keepalived - 高可用解决方案<a class="headerlink" href="#keepalived" title="永久链接至标题">¶</a></h1>
+<p>Keepalived是一个基于VRRP <a class="footnote-reference" href="#id6" id="id1">[1]</a> 协议来实现的服务高可用方案，主要有三个模块，分别是 core、check 和 VRRP。</p>
+<p>core 模块为 keepalived 的核心，负责主进程的启动、维护以及全局配置文件的加载和解析，check 负责健康检查，包括常见的各种检查方式，VRRP 模块是来实现 VRRP 协议的。</p>
+<p>基于这些模块，keepalived 采用了多进程的设计模式，每个进程对应一个模块。</p>
+<div class="section" id="id2">
+<h2>安装<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;keepalived</span></code></p>
+</div>
+<div class="section" id="id3">
+<h2>配置<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>keepalived只有一个配置文件keepalived.conf，里面主要包括以下几个配置区域，分别是global_defs、static_ipaddress、static_routes、vrrp_script、vrrp_instance和virtual_server。 <a class="footnote-reference" href="#id7" id="id4">[2]</a></p>
+<div class="section" id="global-defs">
+<h3>global_defs<a class="headerlink" href="#global-defs" title="永久链接至标题">¶</a></h3>
+<p>global_defs用于设置 keepalived 的通知机制和标识</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">global_defs</span>
+<span class="p">{</span>
+   <span class="n">notification_email</span>
+   <span class="p">{</span>
+       <span class="n">lfzyx</span><span class="nd">@lfzyx</span><span class="o">.</span><span class="n">org</span>
+   <span class="p">}</span>
+   <span class="n">notification_email_from</span> <span class="n">lfzyx</span><span class="nd">@lfzyx</span><span class="o">.</span><span class="n">org</span>
+   <span class="n">smtp_server</span> <span class="n">mail</span><span class="o">.</span><span class="n">lfzyx</span><span class="o">.</span><span class="n">org</span>
+   <span class="n">smtp_connect_timeout</span> <span class="mi">30</span>
+   <span class="n">router_id</span> <span class="n">hostname</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>notification_email 指定 keepalived 发生事件时，用邮件通知的email地址</li>
+<li>router_id 设置机器的标识</li>
+</ul>
+</div>
+<div class="section" id="vrrp-script">
+<h3>vrrp_script<a class="headerlink" href="#vrrp-script" title="永久链接至标题">¶</a></h3>
+<p>告诉 keepalived 在什么情况下降低优先级，可以有多个 vrrp_script</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vrrp_script</span> <span class="n">chk_nginx</span>
+<span class="p">{</span>
+   <span class="n">script</span> <span class="s2">&quot;pidof nginx&quot;</span>
+   <span class="n">interval</span> <span class="mi">1</span>
+   <span class="n">weight</span> <span class="o">-</span><span class="mi">5</span>
+   <span class="n">fall</span> <span class="mi">1</span>
+   <span class="n">rise</span> <span class="mi">2</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>script : 自己写的检测脚本。也可以是一行命令如 pidof nginx</li>
+<li>interval 2 : 每2s检测一次</li>
+<li>weight -5 : 检测失败（脚本返回非0）则优先级 -5</li>
+<li>fall 2 : 检测连续 2 次失败才算确定是真失败。会用weight减少优先级（1-255之间）</li>
+<li>rise 2 : 检测 2 次成功就算成功。但不修改优先级</li>
+</ul>
+</div>
+<div class="section" id="vrrp-instance">
+<h3>vrrp_instance<a class="headerlink" href="#vrrp-instance" title="永久链接至标题">¶</a></h3>
+<p>vrrp_instance用来定义对外提供服务的VIP区域及其相关属性 <a class="footnote-reference" href="#id8" id="id5">[3]</a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vrrp_instance</span> <span class="n">MASTER</span>
+ <span class="p">{</span>
+   <span class="n">state</span> <span class="n">MASTER</span>
+   <span class="n">interface</span> <span class="n">eth0</span>
+   <span class="n">mcast_src_ip</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.71</span>
+   <span class="n">virtual_router_id</span> <span class="mi">73</span>
+   <span class="n">priority</span> <span class="mi">200</span>
+   <span class="n">advert_int</span> <span class="mi">1</span>
+   <span class="n">authentication</span>
+   <span class="p">{</span>
+       <span class="n">auth_type</span> <span class="n">PASS</span>
+       <span class="n">auth_pass</span> <span class="n">passwd</span>
+   <span class="p">}</span>
+   <span class="n">virtual_ipaddress</span>
+   <span class="p">{</span>
+       <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.73</span>
+   <span class="p">}</span>
+   <span class="n">track_script</span>
+   <span class="p">{</span>
+      <span class="n">chk_nginx</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>state : 指定instance(Initial)的初始状态，但启动后会发生竞选，高优先级的会抢占为MASTER</li>
+<li>interface : 实例绑定的网卡，因为在配置虚拟IP的时候必须是在已有的网卡上添加的</li>
+<li>mcast_src_ip :发送多播数据包时的源IP地址，如果没有设置那么就用绑定的网卡的 primary IP</li>
+<li>virtual_router_id : 这里设置VRID，这里非常重要，相同的VRID为一个组，他将决定多播的MAC地址</li>
+<li>priority : 设置本节点的优先级，优先级高的为master</li>
+<li>advert_int : 检查间隔，默认为1秒。这就是VRRP的定时器，MASTER每隔这样一个时间间隔，就会发送一个advertisement报文以通知组内其他路由器自己工作正常</li>
+<li>authentication : 定义认证方式和密码，主从必须一样</li>
+<li>virtual_ipaddress : 这里设置的就是VIP，也就是虚拟IP地址，他随着state的变化而增加删除，当state为master的时候就添加，当state为backup的时候删除</li>
+<li>track_script : 引用VRRP脚本，即在 vrrp_script 部分指定的名字。定期运行它们来改变优先级，并最终引发主备切换。</li>
+</ul>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>VRRP全称 Virtual Router Redundancy Protocol，即 虚拟路由冗余协议。可以认为它是实现路由器高可用的容错协议，即将N台提供相同功能的路由器组成一个路由器组(Router Group)，这个组里面有一个master和多个backup，但在外界看来就像一台一样，构成虚拟路由器，拥有一个虚拟IP（vip，也就是路由器所在局域网内其他机器的默认路由），占有这个IP的master实际负责ARP相应和转发IP数据包，组中的其它路由器作为备份的角色处于待命状态。master会发组播消息，当backup在超时时间内收不到vrrp包时就认为master宕掉了，这时就需要根据VRRP的优先级来选举一个backup当master，保证路由器的高可用。</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="https://github.com/chenzhiwei/linux/tree/master/keepalived">linux/keepalived at master · chenzhiwei/linux</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td><a class="reference external" href="http://seanlook.com/2015/05/18/nginx-keepalived-ha/">Nginx+Keepalived实现站点高可用 | Sean’s Notes</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="lsof.html" class="btn btn-neutral float-right" title="Lsof - 列出打开的文件" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="crontab.html" class="btn btn-neutral" title="Crontab - 周期性任务" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

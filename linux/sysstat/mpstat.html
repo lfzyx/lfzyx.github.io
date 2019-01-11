@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mpstat - 报告个别或组合的处理器相关统计 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="iostat - 报告块设备和分区的CPU统计信息和输入/输出统计信息" href="iostat.html" />
+    <link rel="prev" title="Sysstat - 系统性能分析套件" href="index.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Sysstat - 系统性能分析套件</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">mpstat - 报告个别或组合的处理器相关统计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">安装</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="iostat.html">iostat - 报告块设备和分区的CPU统计信息和输入/输出统计信息</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pidstat.html">pidstat - 报告Linux任务（进程）的统计信息：I/O，CPU，内存等</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sar.html">sar - 收集，报告和保存系统活动信息</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Linux</a> &raquo;</li>
+        
+          <li><a href="index.html">Sysstat - 系统性能分析套件</a> &raquo;</li>
+        
+      <li>mpstat - 报告个别或组合的处理器相关统计</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/sysstat/mpstat.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mpstat">
+<h1>mpstat - 报告个别或组合的处理器相关统计<a class="headerlink" href="#mpstat" title="永久链接至标题">¶</a></h1>
+<p>用于监控系统上cpu的利用率。mpstat命令把每个可用的处理器的状态写到标准输出，默认第一个处理器为processor 0。
+所有处理器的全局平均状态也会以报告形式给出。
+mpstat命令可以用于SMP和UP的机器上，但是在UP机器上，只有全局平均状态会被打印出来。如果没有选择具体行为，默认将报告CPU的利用率</p>
+<div class="section" id="id1">
+<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;sysstat</span></code></p>
+</div>
+<div class="section" id="id2">
+<h2>语法<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>P 指定cpu编号</p>
+<p>3 每隔3秒打印一次报告</p>
+<p>5 一共打印5次</p>
+</div>
+<div class="section" id="id3">
+<h2>示例<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">mpstat&nbsp;-P&nbsp;ALL</span></code></p>
+<p>Linux 2.6.32-openvz-042stab093.4-amd64 (91) 2014年10月21日 _x86_64_ (2 CPU)</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="6%" />
+<col width="7%" />
+<col width="8%" />
+<col width="7%" />
+<col width="11%" />
+<col width="7%" />
+<col width="8%" />
+<col width="10%" />
+<col width="10%" />
+<col width="8%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">22时54分42秒</th>
+<th class="head">CPU</th>
+<th class="head">%usr</th>
+<th class="head">%nice</th>
+<th class="head">%sys</th>
+<th class="head">%iowait</th>
+<th class="head">%irq</th>
+<th class="head">%soft</th>
+<th class="head">%steal</th>
+<th class="head">%guest</th>
+<th class="head">%idle</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>22时54分42秒</td>
+<td>all</td>
+<td>0.04</td>
+<td>0.00</td>
+<td>0.05</td>
+<td>0.27</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>99.63</td>
+</tr>
+<tr class="row-odd"><td>14时48分45秒</td>
+<td>0</td>
+<td>0.24</td>
+<td>0.00</td>
+<td>0.04</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>99.72</td>
+</tr>
+<tr class="row-even"><td>14时48分45秒</td>
+<td>1</td>
+<td>0.23</td>
+<td>0.00</td>
+<td>0.04</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>99.74</td>
+</tr>
+</tbody>
+</table>
+<ul class="simple">
+<li>%usr : 显示在用户级别（例如应用程序）执行时CPU利用率的百分比</li>
+<li>%nice :显示在拥有nice优先级的用户级别执行时CPU利用率的百分比</li>
+<li>%sys : 现实在系统级别（例如内核）执行时CPU利用率的百分比</li>
+<li>%iowait : 显示在系统有未完成的磁盘I/O请求期间CPU空闲时间的百分比</li>
+<li>%irq : 显示CPU服务硬件中断所花费时间的百分比</li>
+<li>%soft : 显示CPU服务软件中断所花费时间的百分比</li>
+<li>%steal : 显示虚拟机管理器在服务另一个虚拟处理器时虚拟CPU处在非自愿等待下花费时间的百分比</li>
+<li>%guest : 显示运行虚拟处理器时CPU花费时间的百分比</li>
+<li>%idle : 显示系统没有未完成的磁盘I/O请求期间CPU空闲时间的百分比</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="iostat.html" class="btn btn-neutral float-right" title="iostat - 报告块设备和分区的CPU统计信息和输入/输出统计信息" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Sysstat - 系统性能分析套件" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

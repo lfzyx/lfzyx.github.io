@@ -1,0 +1,385 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Systemd - 系统启动管理 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Audit - 安全审计" href="audit.html" />
+    <link rel="prev" title="KVM - 虚拟化解决方案" href="kvm.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Systemd - 系统启动管理</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">设计</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">单元</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">核心组件和库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">辅助部件</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#systemctl">systemctl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#journalctl">journalctl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#systemd-analyze">systemd-analyze</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Systemd - 系统启动管理</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/systemd.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="systemd">
+<span id="index-0"></span><h1>Systemd - 系统启动管理<a class="headerlink" href="#systemd" title="永久链接至标题">¶</a></h1>
+<p>linux 在开机加载内核后，便由内核加载 systemd init 系统，再由 systemd
+init 系统加载用户空间和启动进程。systemd
+控制系统服务间的依赖关系，并依此实现系统初始化时服务的并行启动。</p>
+<div class="section" id="id1">
+<h2>设计<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3>单元<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<p>systemd 的核心是一个叫单元 unit 的概念，systemd
+使用声明性语句在配置文件中为每个守护进程记录初始化指令，配置文件被称之为
+Unit file 。 Unit 一共分成12种:</p>
+<ul class="simple">
+<li>Service&nbsp;unit：系统服务</li>
+<li>Target&nbsp;unit：多个&nbsp;Unit&nbsp;构成的一个组</li>
+<li>Device&nbsp;Unit：硬件设备</li>
+<li>Mount&nbsp;Unit：文件系统的挂载点</li>
+<li>Automount&nbsp;Unit：自动挂载点</li>
+<li>Path&nbsp;Unit：文件或路径</li>
+<li>Scope&nbsp;Unit：不是由&nbsp;Systemd&nbsp;启动的外部进程</li>
+<li>Slice&nbsp;Unit：进程组</li>
+<li>Snapshot&nbsp;Unit：Systemd&nbsp;快照，可以切回某个快照</li>
+<li>Socket&nbsp;Unit：进程间通信的socket</li>
+<li>Swap&nbsp;Unit：swap&nbsp;文件</li>
+<li>Timer&nbsp;Unit：定时器</li>
+</ul>
+<p>一个sshd.service 是一个 Unit，一个 multi-user.target 集合也是一个
+Unit。Systemd
+的其中一个目标就是简化这些单元之间的相互作用，因此如果你有程序需要在某个挂载点被创建或某个设备被接入后开始运行，Systemd
+可以让这一切正常运作起来变得相当容易。</p>
+</div>
+<div class="section" id="id3">
+<h3>核心组件和库<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>systemd 是一个系统和服务管理程序.</li>
+<li>systemctl 是与 Systemd 交互的控制程序.</li>
+<li>systemd-analyze
+用于确定系统启动性能统计信息，从系统和服务管理器中了解其他状态和跟踪信息</li>
+</ul>
+<p>systemd 用 linux 内核的 cgroups 子系统代替 PIDs
+来追踪进程，以此即使是两次fork之后生成的守护进程也不会脱离systemd的控制。</p>
+</div>
+<div class="section" id="id4">
+<h3>辅助部件<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>systemd-journald
+负责事件记录的守护进程，二进制文件作为其日志文件，系统管理员可以选择使用
+systemd-journald，syslog-ng或rsyslog 记录系统事件。</li>
+<li>systemd-logind
+管理用户登陆的守护进程，它是一个集成的登录管理器，替代不再维护的ConsoleKit</li>
+<li>networkd 处理网络接口配置的守护进程</li>
+<li>timedated 控制时间设置的守护进程</li>
+<li>udevd 驱动管理器</li>
+<li>systemd-boot 启动管理器</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>使用<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="systemctl">
+<h3>systemctl<a class="headerlink" href="#systemctl" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>systemctl status 显示系统状态</li>
+<li>systemctl list-units 输出已加载的单元</li>
+<li>systemctl list-units –all 输出已加载的单元（包含未激活）</li>
+<li>systemctl list-units –failed 输出运行失败的单元</li>
+<li>systemctl list-unit-files 查看所有已安装单元，自动启动 enabled
+的单元显示为绿色，被禁用自动启动 disabled 的显示为红色。标记为 static
+的单元不能直接启用，它们是其他单元所依赖的对象，masked
+是被禁用的单元。所有可用的单元文件存放在 /lib/systemd/system 和
+/etc/systemd/system/
+目录（后者优先级更高）。在单元配置文件中，您可以看到各种选项，包括要被运行的二进制文件（“ExecStart”那一行），相冲突的其他单元（即不能同时进入运行的单元），以及需要在本单元执行前进入运行的单元（“After”那一行）。一些单元有附加的依赖选项，例如“Requires”（必要的依赖）和“Wants”（可选的依赖）。</li>
+<li>systemctl start 立即激活单元</li>
+<li>systemctl stop 立即停止单元</li>
+<li>systemctl restart 重启单元</li>
+<li>systemctl reload 重新加载配置</li>
+<li>systemctl status 输出单元状态</li>
+<li>systemctl is-enabled 检查单元是否配置为自动启动</li>
+<li>systemctl enable
+开机自动启动单元,这会为该单元创建一个符号链接，并将其放置在当前启动目标的
+.wants 目录下，这些 .wants 目录在/etc/systemd/system 文件夹中。</li>
+<li>systemctl disable 取消开机自动启动单元</li>
+<li>systemctl mask 禁用一个单元</li>
+<li>systemctl unmask 取消禁用一个单元</li>
+<li>systemctl list-dependencies 列出一个 Unit 的所有依赖</li>
+</ul>
+<p>使用 systemctl 控制单元时，通常需要使用单元文件的全名，包括扩展名（例如
+sshd.service ）。但是有些单元可以在 systemctl 中使用简写方式。</p>
+</div>
+<div class="section" id="journalctl">
+<h3>journalctl<a class="headerlink" href="#journalctl" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>journalctl -b 输出本次启动的日志</li>
+<li>journalctl -b –since=”2016-10-24 16:38”
+2016年10月24日16:38以来的日志</li>
+</ul>
+</div>
+<div class="section" id="systemd-analyze">
+<h3>systemd-analyze<a class="headerlink" href="#systemd-analyze" title="永久链接至标题">¶</a></h3>
+<ul class="simple">
+<li>systemd-analyze blame 查看每个服务的启动耗时</li>
+<li>systemd-analyze critical-chain 显示瀑布状的启动过程流</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="audit.html" class="btn btn-neutral float-right" title="Audit - 安全审计" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kvm.html" class="btn btn-neutral" title="KVM - 虚拟化解决方案" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

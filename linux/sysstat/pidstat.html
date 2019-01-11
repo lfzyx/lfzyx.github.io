@@ -1,0 +1,308 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pidstat - 报告Linux任务（进程）的统计信息：I/O，CPU，内存等 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="sar - 收集，报告和保存系统活动信息" href="sar.html" />
+    <link rel="prev" title="iostat - 报告块设备和分区的CPU统计信息和输入/输出统计信息" href="iostat.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Sysstat - 系统性能分析套件</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="mpstat.html">mpstat - 报告个别或组合的处理器相关统计</a></li>
+<li class="toctree-l3"><a class="reference internal" href="iostat.html">iostat - 报告块设备和分区的CPU统计信息和输入/输出统计信息</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pidstat - 报告Linux任务（进程）的统计信息：I/O，CPU，内存等</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sar.html">sar - 收集，报告和保存系统活动信息</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Linux</a> &raquo;</li>
+        
+          <li><a href="index.html">Sysstat - 系统性能分析套件</a> &raquo;</li>
+        
+      <li>pidstat - 报告Linux任务（进程）的统计信息：I/O，CPU，内存等</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/sysstat/pidstat.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pidstat-linux-i-o-cpu">
+<h1>pidstat - 报告Linux任务（进程）的统计信息：I/O，CPU，内存等<a class="headerlink" href="#pidstat-linux-i-o-cpu" title="永久链接至标题">¶</a></h1>
+<p>用于监控进程和线程</p>
+<div class="section" id="id1">
+<h2>语法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pidstat</span> <span class="pre">&lt;OPTIONS&gt;</span> <span class="pre">[INTERVAL]</span> <span class="pre">[COUNT]</span></code></p>
+<p>-p ALL 显示所有活动和不活动的进程</p>
+<p>-d I/O的统计数据</p>
+<p>-r 内存使用情况的数据</p>
+</div>
+<div class="section" id="id2">
+<h2>示例<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pidstat</span> <span class="n">现实所有活动进程</span>
+
+<span class="mi">13</span><span class="n">时17分57秒</span>     <span class="n">PID</span>    <span class="o">%</span><span class="n">usr</span>     <span class="o">%</span><span class="n">system</span>    <span class="o">%</span><span class="n">guest</span>     <span class="o">%</span><span class="n">CPU</span>   <span class="n">CPU</span>  <span class="n">Command</span>
+<span class="mi">13</span><span class="n">时17分57秒</span>       <span class="mi">1</span>       <span class="mf">0.00</span>       <span class="mf">0.00</span>                 <span class="mf">0.00</span>      <span class="mf">0.00</span>       <span class="mi">1</span>      <span class="n">init</span>
+<span class="mi">13</span><span class="n">时17分57秒</span>       <span class="mi">82</span>     <span class="mf">0.00</span>       <span class="mf">0.00</span>                 <span class="mf">0.00</span>      <span class="mf">0.00</span>       <span class="mi">1</span>      <span class="n">upstart</span><span class="o">-</span><span class="n">udev</span><span class="o">-</span><span class="n">br</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>PID - 被监控的任务的进程号</li>
+<li>%usr - 当在用户层执行(应用程序)时这个任务的cpu使用率，和 nice
+优先级无关。注意这个字段计算的cpu时间不包括在虚拟处理器中花去的时间。</li>
+<li>%system - 这个任务在系统层使用时的cpu使用率。</li>
+<li>%guest - 任务花费在虚拟机上的cpu使用率（运行在虚拟处理器）。</li>
+<li>%CPU - 任务总的cpu使用率。在SMP环境(多处理器)中，如果在命令行中输入-I参数的话，cpu使用率会除以你的cpu数量。</li>
+<li>CPU - 正在运行这个任务的处理器编号。</li>
+<li>Command - 这个任务的命令名称。</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sar.html" class="btn btn-neutral float-right" title="sar - 收集，报告和保存系统活动信息" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="iostat.html" class="btn btn-neutral" title="iostat - 报告块设备和分区的CPU统计信息和输入/输出统计信息" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

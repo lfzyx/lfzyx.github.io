@@ -1,0 +1,265 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Elastic Stack &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="GoAccess - nginx 日志分析" href="goaccess.html" />
+    <link rel="prev" title="GoCD - 持续交付流水线" href="gocd.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DevOps</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="continuousintegration.html">Continuous Integration - 持续集成方法</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gocd.html">GoCD - 持续交付流水线</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Elastic Stack</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#elasticsearch">Elasticsearch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="goaccess.html">GoAccess - nginx 日志分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html">Kubernetes -  自动化的容器部署、扩展和管理</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">DevOps</a> &raquo;</li>
+        
+      <li>Elastic Stack</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/devops/elasticstack.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="elastic-stack">
+<h1>Elastic Stack<a class="headerlink" href="#elastic-stack" title="永久链接至标题">¶</a></h1>
+<p>Elastic Stack 能够安全可靠地获取任何来源、任何格式的数据，并且能够实时地对数据进行搜索、分析和可视化。</p>
+<p>我们主要用到 Elastic Stack 中的以下组件：</p>
+<ul class="simple">
+<li>Elasticsearch, 分布式的 RESTful 风格的搜索和数据分析引擎，集中存储数据</li>
+<li>Filebeat, 轻量型采集器，用于汇总日志数据转发到 Elasticsearch</li>
+<li>Kibana, 以图表的形式呈现数据，并且具有可扩展的用户界面</li>
+<li>X-Pack, 使传输和存储的数据始终享有可靠的安全保障</li>
+</ul>
+<div class="section" id="elasticsearch">
+<h2>Elasticsearch<a class="headerlink" href="#elasticsearch" title="永久链接至标题">¶</a></h2>
+<p>Elasticsearch 是一个高性能的开源的分布式全文检索和分析工具，用于实时存储、检索、分析大数据。</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="goaccess.html" class="btn btn-neutral float-right" title="GoAccess - nginx 日志分析" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="gocd.html" class="btn btn-neutral" title="GoCD - 持续交付流水线" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

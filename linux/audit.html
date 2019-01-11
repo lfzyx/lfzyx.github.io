@@ -1,0 +1,409 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Audit - 安全审计 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Tripwire - 文件完整性检查" href="tripwire.html" />
+    <link rel="prev" title="Systemd - 系统启动管理" href="systemd.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Audit - 安全审计</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#auditctl">auditctl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#aureport">aureport</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ausearch">ausearch</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Audit - 安全审计</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/audit.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="audit">
+<span id="index-0"></span><h1>Audit - 安全审计<a class="headerlink" href="#audit" title="永久链接至标题">¶</a></h1>
+<p>Audit 是 linux 上的审计工具, 用于记录 linux 上的动作. 通过日志文件, 我们可以跟踪安全事件, 查明滥用和未授权的活动，包括：</p>
+<ul class="simple">
+<li>跟踪文件访问</li>
+<li>监控系统调用</li>
+<li>记录命令执行</li>
+<li>记录安全事件</li>
+<li>事件搜索</li>
+<li>报告总结</li>
+<li>监控网络访问</li>
+</ul>
+<div class="section" id="id1">
+<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span> <span class="pre">auditd</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">start</span> <span class="pre">auditd</span></code></p>
+<p>Audit 系统由两部分组成:</p>
+<ol class="arabic simple">
+<li>audit 核心部件监听系统调用，记录事件，发送消息至 audit daemon</li>
+<li>audit daemon 收集消息，输出条目至日志文件</li>
+</ol>
+</div>
+<div class="section" id="id2">
+<h2>配置<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p>配置文件为 /etc/audit/auditd.conf <a class="footnote-reference" href="#id5" id="id3">[1]</a></p>
+<ul class="simple">
+<li>num_logs 日志轮循个数</li>
+<li>max_log_file 单个日志文件大小</li>
+<li>max_log_file_action 到达日志大小限制触发的行为</li>
+</ul>
+<p>规则文件为 /etc/audit/audit.rules</p>
+</div>
+<div class="section" id="auditctl">
+<h2>auditctl<a class="headerlink" href="#auditctl" title="永久链接至标题">¶</a></h2>
+<p>auditctl 控制审计系统的行为</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-l</span></kbd></td>
+<td>查看审计规则</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-w</span></kbd></td>
+<td>添加文件路径</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td>指定触发审计的权限，r=read, w=write, x=execute, a=attribute</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-k</span></kbd></td>
+<td>添加规则时设置关键字</td></tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">auditctl</span> <span class="pre">-w</span> <span class="pre">/etc/passwd</span> <span class="pre">-p</span> <span class="pre">rwxa</span></code></p>
+</div>
+<div class="section" id="aureport">
+<h2>aureport<a class="headerlink" href="#aureport" title="永久链接至标题">¶</a></h2>
+<p>aureport 通过日志生成一份总结性的报告</p>
+<p><strong>示例</strong></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Summary</span> <span class="n">Report</span>
+<span class="o">======================</span>
+<span class="n">Range</span> <span class="n">of</span> <span class="n">time</span> <span class="ow">in</span> <span class="n">logs</span><span class="p">:</span> <span class="mi">12</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">16</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mf">40.330</span> <span class="o">-</span> <span class="mi">12</span><span class="o">/</span><span class="mi">25</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">15</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mf">57.867</span>
+<span class="n">Selected</span> <span class="n">time</span> <span class="k">for</span> <span class="n">report</span><span class="p">:</span> <span class="mi">12</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">16</span><span class="p">:</span><span class="mi">24</span><span class="p">:</span><span class="mi">40</span> <span class="o">-</span> <span class="mi">12</span><span class="o">/</span><span class="mi">25</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">15</span><span class="p">:</span><span class="mi">37</span><span class="p">:</span><span class="mf">57.867</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">changes</span> <span class="ow">in</span> <span class="n">configuration</span><span class="p">:</span> <span class="mi">11</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">changes</span> <span class="n">to</span> <span class="n">accounts</span><span class="p">,</span> <span class="n">groups</span><span class="p">,</span> <span class="ow">or</span> <span class="n">roles</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">logins</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">failed</span> <span class="n">logins</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">authentications</span><span class="p">:</span> <span class="mi">8</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">failed</span> <span class="n">authentications</span><span class="p">:</span> <span class="mi">0</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">users</span><span class="p">:</span> <span class="mi">5</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">terminals</span><span class="p">:</span> <span class="mi">12</span>
+<span class="n">Number</span> <span class="n">of</span> <span class="n">host</span> <span class="n">names</span><span class="p">:</span> <span class="mi">6</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="ausearch">
+<h2>ausearch<a class="headerlink" href="#ausearch" title="永久链接至标题">¶</a></h2>
+<p>ausearch 查找审计事件</p>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-f</span></kbd></td>
+<td>基于文件路径查找事件</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-m</span></kbd></td>
+<td>基于类型查找事件</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-a</span></kbd></td>
+<td>基于 audit message ID 查找时间</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-k</span></kbd></td>
+<td>基于关键字查找事件</td></tr>
+</tbody>
+</table>
+<p><strong>示例</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">ausearch</span> <span class="pre">-i</span> <span class="pre">-f</span> <span class="pre">/etc/passwd</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">type</span><span class="o">=</span><span class="n">PROCTITLE</span> <span class="n">msg</span><span class="o">=</span><span class="n">audit</span><span class="p">(</span><span class="mi">12</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">17</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mf">10.706</span><span class="p">:</span><span class="mi">180</span><span class="p">)</span> <span class="p">:</span> <span class="n">proctitle</span><span class="o">=</span><span class="n">rm</span>
+<span class="nb">type</span><span class="o">=</span><span class="n">PATH</span> <span class="n">msg</span><span class="o">=</span><span class="n">audit</span><span class="p">(</span><span class="mi">12</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">17</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mf">10.706</span><span class="p">:</span><span class="mi">180</span><span class="p">)</span> <span class="p">:</span> <span class="n">item</span><span class="o">=</span><span class="mi">1</span> <span class="n">name</span><span class="o">=</span><span class="n">config</span><span class="o">.</span><span class="n">py</span> <span class="n">inode</span><span class="o">=</span><span class="mi">111706342</span> <span class="n">dev</span><span class="o">=</span><span class="n">fe</span><span class="p">:</span><span class="mi">05</span> <span class="n">mode</span><span class="o">=</span><span class="n">file</span><span class="p">,</span><span class="mi">644</span> <span class="n">ouid</span><span class="o">=</span><span class="n">qc</span> <span class="n">ogid</span><span class="o">=</span><span class="n">qc</span> <span class="n">rdev</span><span class="o">=</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">nametype</span><span class="o">=</span><span class="n">DELETE</span>
+<span class="nb">type</span><span class="o">=</span><span class="n">PATH</span> <span class="n">msg</span><span class="o">=</span><span class="n">audit</span><span class="p">(</span><span class="mi">12</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">17</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mf">10.706</span><span class="p">:</span><span class="mi">180</span><span class="p">)</span> <span class="p">:</span> <span class="n">item</span><span class="o">=</span><span class="mi">0</span> <span class="n">name</span><span class="o">=/</span><span class="n">opt</span> <span class="n">inode</span><span class="o">=</span><span class="mi">111706226</span> <span class="n">dev</span><span class="o">=</span><span class="n">fe</span><span class="p">:</span><span class="mi">05</span> <span class="n">mode</span><span class="o">=</span><span class="nb">dir</span><span class="p">,</span><span class="mi">755</span> <span class="n">ouid</span><span class="o">=</span><span class="n">qc</span> <span class="n">ogid</span><span class="o">=</span><span class="n">qc</span> <span class="n">rdev</span><span class="o">=</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span> <span class="n">nametype</span><span class="o">=</span><span class="n">PARENT</span>
+<span class="nb">type</span><span class="o">=</span><span class="n">CWD</span> <span class="n">msg</span><span class="o">=</span><span class="n">audit</span><span class="p">(</span><span class="mi">12</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">17</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mf">10.706</span><span class="p">:</span><span class="mi">180</span><span class="p">)</span> <span class="p">:</span>  <span class="n">cwd</span><span class="o">=/</span><span class="n">opt</span><span class="o">/</span><span class="n">config</span><span class="o">.</span><span class="n">py</span>
+<span class="nb">type</span><span class="o">=</span><span class="n">SYSCALL</span> <span class="n">msg</span><span class="o">=</span><span class="n">audit</span><span class="p">(</span><span class="mi">12</span><span class="o">/</span><span class="mi">22</span><span class="o">/</span><span class="mi">2017</span> <span class="mi">17</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mf">10.706</span><span class="p">:</span><span class="mi">180</span><span class="p">)</span> <span class="p">:</span> <span class="n">arch</span><span class="o">=</span><span class="n">x86_64</span> <span class="n">syscall</span><span class="o">=</span><span class="n">unlinkat</span> <span class="n">success</span><span class="o">=</span><span class="n">yes</span> <span class="n">exit</span><span class="o">=</span><span class="mi">0</span> <span class="n">a0</span><span class="o">=</span><span class="mh">0xffffffffffffff9c</span> <span class="n">a1</span><span class="o">=</span><span class="mh">0x19bc0c0</span> <span class="n">a2</span><span class="o">=</span><span class="mh">0x0</span> <span class="n">a3</span><span class="o">=</span><span class="mh">0x7ffd05556870</span> <span class="n">items</span><span class="o">=</span><span class="mi">2</span> <span class="n">ppid</span><span class="o">=</span><span class="mi">67063</span> <span class="n">pid</span><span class="o">=</span><span class="mi">68083</span> <span class="n">auid</span><span class="o">=</span><span class="n">lfzyx</span> <span class="n">uid</span><span class="o">=</span><span class="n">root</span> <span class="n">gid</span><span class="o">=</span><span class="n">root</span> <span class="n">euid</span><span class="o">=</span><span class="n">root</span> <span class="n">suid</span><span class="o">=</span><span class="n">root</span> <span class="n">fsuid</span><span class="o">=</span><span class="n">root</span> <span class="n">egid</span><span class="o">=</span><span class="n">root</span> <span class="n">sgid</span><span class="o">=</span><span class="n">root</span> <span class="n">fsgid</span><span class="o">=</span><span class="n">root</span> <span class="n">tty</span><span class="o">=</span><span class="n">pts2</span> <span class="n">ses</span><span class="o">=</span><span class="mi">20178</span> <span class="n">comm</span><span class="o">=</span><span class="n">rm</span> <span class="n">exe</span><span class="o">=/</span><span class="nb">bin</span><span class="o">/</span><span class="n">rm</span> <span class="n">key</span><span class="o">=</span><span class="n">qc</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>type : audit message 类型</li>
+<li>name : 审计对象</li>
+<li>arch : CPU 架构</li>
+<li>syscall : 系统调用类型</li>
+<li>success : 系统调用是否成功</li>
+<li>ppid : 父进程 ID</li>
+<li>pid : 进程 ID</li>
+<li>auid : 原始 UID</li>
+<li>uid 和 gid : 访问文件的用户ID和用户组ID</li>
+<li>cwd : 当前路径</li>
+<li>comm : 触发这条 audit message 的命令</li>
+<li>exe : 命令的路径</li>
+<li>key : 规则定义的关键字 <a class="footnote-reference" href="#id6" id="id4">[2]</a></li>
+</ul>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><a class="reference external" href="https://www.ibm.com/developerworks/cn/linux/l-lo-use-space-audit-tool/index.html">Linux 用户空间审计工具 audit</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/6/html/security_guide/sec-understanding_audit_log_files">UNDERSTANDING AUDIT LOG FILES</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tripwire.html" class="btn btn-neutral float-right" title="Tripwire - 文件完整性检查" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="systemd.html" class="btn btn-neutral" title="Systemd - 系统启动管理" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

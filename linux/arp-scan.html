@@ -1,0 +1,253 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Arp-scan &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Arp-scan</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/arp-scan.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="arp-scan">
+<h1>Arp-scan<a class="headerlink" href="#arp-scan" title="永久链接至标题">¶</a></h1>
+<p>局域网arp扫描工具，会在本地网络发送arp包来收集地址。如果有多个MAC地址声称拥有相同的IP地址，那么这里就存在冲突。</p>
+<div class="section" id="id1">
+<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">#&nbsp;apt-get&nbsp;install&nbsp;arp-scan</span></code></p>
+</div>
+<div class="section" id="id2">
+<h2>语法<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">arp-scan&nbsp;[options]&nbsp;[hosts...]</span></code></p>
+</div>
+<div class="section" id="id3">
+<h2>示例<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">#arp-scan&nbsp;-I&nbsp;eth0&nbsp;-l</span></code></p>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Interface:&nbsp;eth0,&nbsp;datalink&nbsp;type:&nbsp;EN10MB&nbsp;(Ethernet)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Starting&nbsp;arp-scan&nbsp;1.8.1&nbsp;with&nbsp;256&nbsp;hosts&nbsp;(http://www.nta-monitor.com/tools/arp-scan/)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">10.10.10.10&nbsp;&nbsp;&nbsp;&nbsp;c8:3a:35:80:f9:de&nbsp;&nbsp;&nbsp;Tenda&nbsp;Technology&nbsp;Co.,&nbsp;Ltd.</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">10.10.10.75&nbsp;&nbsp;&nbsp;&nbsp;04:7d:7b:43:14:9f&nbsp;&nbsp;&nbsp;(Unknown)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">10.10.10.90&nbsp;&nbsp;&nbsp;&nbsp;00:30:48:d9:8a:32&nbsp;&nbsp;&nbsp;Supermicro&nbsp;Computer,&nbsp;Inc.</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">10.10.10.100&nbsp;&nbsp;&nbsp;c8:9c:dc:ff:7a:a9&nbsp;&nbsp;&nbsp;(Unknown)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">10.10.10.101&nbsp;&nbsp;&nbsp;f8:0f:41:57:5f:c9&nbsp;&nbsp;&nbsp;Wistron&nbsp;InfoComm(ZhongShan)&nbsp;Corporation</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">10.10.10.102&nbsp;&nbsp;&nbsp;bc:ae:c5:6f:03:5e&nbsp;&nbsp;&nbsp;ASUSTek&nbsp;COMPUTER&nbsp;INC.</span></code></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

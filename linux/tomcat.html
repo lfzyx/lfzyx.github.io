@@ -1,0 +1,476 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tomcat - java 容器 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Ulimit - 用户资源控制" href="ulimit.html" />
+    <link rel="prev" title="SVN - 上一代版本控制系统" href="svn.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tomcat - java 容器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">结构 </a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#bin">bin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#conf">conf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lib">lib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#logs">logs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#temp">temp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#webapp">webapp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#work">work</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#connector">connector模式</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Tomcat - java 容器</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/tomcat.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tomcat-java">
+<h1>Tomcat - java 容器<a class="headerlink" href="#tomcat-java" title="永久链接至标题">¶</a></h1>
+<p>Tomcat即是一个Http服务器也是一个Servlet容器</p>
+<div class="section" id="id1">
+<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">default</span><span class="o">-</span><span class="n">jdk</span>
+<span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">us</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">dist</span><span class="o">/</span><span class="n">tomcat</span><span class="o">/</span><span class="n">tomcat</span><span class="o">-</span><span class="mi">8</span><span class="o">/</span><span class="n">v8</span><span class="o">.</span><span class="mf">0.9</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mf">9.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">tar</span> <span class="n">zxvf</span> <span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mf">9.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">apache</span><span class="o">-</span><span class="n">tomcat</span><span class="o">-</span><span class="mf">8.0</span><span class="o">.</span><span class="mi">9</span>
+<span class="nb">bin</span><span class="o">/</span><span class="n">startup</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>结构 <a class="footnote-reference" href="#id7" id="id2">[1]</a><a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="bin">
+<h3>bin<a class="headerlink" href="#bin" title="永久链接至标题">¶</a></h3>
+<p>存放启动和关闭tomcat脚本</p>
+<div class="section" id="daemon-sh">
+<h4>daemon.sh<a class="headerlink" href="#daemon-sh" title="永久链接至标题">¶</a></h4>
+</div>
+<div class="section" id="setenv-sh">
+<h4>setenv.sh<a class="headerlink" href="#setenv-sh" title="永久链接至标题">¶</a></h4>
+<p>CATALINA_OPTS=”$CATALINA_OPTS -server -Xms600m -Xmx600m -Xmn200m
+-XX:userParNewGC -XX:ParallelGCThreads -XX:UseParallelGC
+-Djava.awt.headless=true -Xloggc:/tmp/gc.logs”</p>
+<p>CATALINA_OPTS=”$CATALINA_OPTS -Xdebug
+-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=20002”</p>
+</div>
+</div>
+<div class="section" id="conf">
+<h3>conf<a class="headerlink" href="#conf" title="永久链接至标题">¶</a></h3>
+<p>包含不同的配置文件</p>
+<div class="section" id="server-xml">
+<h4>server.xml<a class="headerlink" href="#server-xml" title="永久链接至标题">¶</a></h4>
+<p>tomcat的主配置文件，包含service,connectors,engine,realm,valve,hosts等组件</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Server</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8005&quot;</span> <span class="n">shutdown</span><span class="o">=</span><span class="s2">&quot;SHUTDOWN&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Server是Tomcat中最顶层的组件，它可以包含多个Service组件，port指定一个端口，这个端口负责监听关闭tomcat的请求，shutdown指定向端口发送的命令字符串</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Listener</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;org.apache.catalina.core.AprLifecycleListener&quot;</span> <span class="n">SSLEngine</span><span class="o">=</span><span class="s2">&quot;off&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>默认支持Apr模式</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Service</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Catalina&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Service组件相当于Connetor和Engine组件的包装器，它将一个或者多个Connector组件和一个Engine建立关联，name指定service的名字</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8080&quot;</span> <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;HTTP/1.1&quot;</span> <span class="n">connectionTimeout</span><span class="o">=</span><span class="s2">&quot;20000&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="n">address</span><span class="o">=</span><span class="s2">&quot;127.0.0.1&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>Connector <a class="footnote-reference" href="#id8" id="id4">[2]</a> 是Tomcat中监听TCP网络连接的组件，一个Connector会监听一个独立的端口来处理来自客户端的连接，port指定服务器端要创建的端口号，并在这个断口监听来自客户端的请求，protocol
+启动协议，maxThreads:设定在监听端口的线程的最大数目,这个值也决定了服务器可以同时响应客户请求的最大数目.默认值为200，acceptCount指定当所有可以使用的处理请求的线程数都被使用时，可以放到等待队列中的请求数，超过这个数的请求将不予处理.默认值为100，minProcessors服务器启动时创建的处理请求的线程数，maxProcessors最大可以创建的处理请求的线程数，minSpareThreads最小备用线程，maxSpareThreads最大备用线程，connectionTimeout指定超时的时间数(以毫秒为单位)，redirectPort指定服务器正在处理http请求时收到了一个SSL传输请求后重定向的端口号，enableLookups如果为true，则可以通过调用request.getRemoteHost()进行DNS查询来得到远程客户端的实际主机名；若为false则不进行DNS查询，而是返回其ip地址，address如果服务器有两个以上IP地址,该属性可以设定端口监听的IP地址,默认情况下,端口会监听服务器上所有IP地址，debug日志等级
+，disableUploadTimeout禁用上传超时，主要用于大数据上传时</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Connector</span> <span class="n">port</span><span class="o">=</span><span class="s2">&quot;8009&quot;</span> <span class="n">protocol</span><span class="o">=</span><span class="s2">&quot;AJP/1.3&quot;</span> <span class="n">redirectPort</span><span class="o">=</span><span class="s2">&quot;8443&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>AJP表示Apache Jserv Protocol,此连接器将处理Tomcat和Aapache
+http服务器之间的交互，这个连机器是用来处理我们将Tomcat和Apache
+http服务器结合使用的情况。假如在同样的一台物理Server上面部署了一台Apache
+http服务器和多台Tomcat服务器，通过Apache服务器来处理静态资源以及负载均衡的时候，针对不同的Tomcat实例需要AJP监听不同的端口</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Engine</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Catalina&quot;</span> <span class="n">defaultHost</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>一个Engine可以包含一个或者多个Host,也就是说我们一个Tomcat的实例可以配置多个虚拟主机，name定义Engine容器的名称,
+对应$CATALINA_HOME/config/Catalina中的Catalina，defaultHost指定缺省的处理请求的主机名，它至少与其中的一个host元素的name属性值是一样的，debug日志等级</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Realm</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;org.apache.catalina.realm.LockOutRealm&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">Realm</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;org.apache.catalina.realm.UserDatabaseRealm&quot;</span> <span class="n">resourceName</span><span class="o">=</span><span class="s2">&quot;UserDatabase&quot;</span><span class="o">/&gt;</span>
+<span class="o">&lt;</span><span class="n">Host</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;localhost&quot;</span>  <span class="n">appBase</span><span class="o">=</span><span class="s2">&quot;webapps&quot;</span> <span class="n">unpackWARs</span><span class="o">=</span><span class="s2">&quot;true&quot;</span> <span class="n">autoDeploy</span><span class="o">=</span><span class="s2">&quot;true&quot;</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>name指定主机名，一个虚拟主机可以有多个Context。appBase为webapps，也就是\webapps目录，
+unpackingWARS属性指定在appBase指定的目录中的war包都自动的解压，autoDeploy属性指定是否对加入到appBase目录的war包进行自动的部署</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Valve</span> <span class="n">className</span><span class="o">=</span><span class="s2">&quot;org.apache.catalina.valves.AccessLogValve&quot;</span> <span class="n">directory</span><span class="o">=</span><span class="s2">&quot;logs&quot;</span> <span class="n">prefix</span><span class="o">=</span><span class="s2">&quot;localhost_access_log.&quot;</span> <span class="n">suffix</span><span class="o">=</span><span class="s2">&quot;.txt&quot;</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;%h %l </span><span class="si">%u</span><span class="s2"> %t &quot;</span><span class="o">%</span><span class="sa">r</span><span class="s2">&quot; </span><span class="si">%s</span><span class="s2"> %b&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>Valve中文意思是阀门，Valve是Tomcat中责任链模式的实现，通过链接多个Valve对请求进行处理。其中Valve可以定义在任何的容器中，上面说的Engine,Host,Context都属于容器。className
+指定Valve使用的类名。默认定义了一个名为org.apache.catalina.valves.AccessLogValve的类,负责拦截每个请求，然后记录应用程序的访问信息志。directory
+指定log文件存放的位置，pattern
+有两个值，common方式记录远程主机名或ip地址，用户名，日期，第一行请求的字符串，HTTP响应代码，发送的字节数。combined方式比common方式记录的值更多。建议使用pattern=”%{X-Real-IP}i
+%l %u %t “%r” %s %b %{User-Agent}i” ，记录真实IP。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Context</span> <span class="n">docBase</span><span class="o">=</span><span class="s2">&quot;ROOT&quot;</span> <span class="n">path</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="n">debug</span> <span class="o">=</span><span class="s2">&quot;0&quot;</span> <span class="n">allowLinking</span><span class="o">=</span><span class="s2">&quot;true&quot;</span> <span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>在Tomcat中，每一个运行的webapp其实最终都是以Context的形成存在，每个Context都有一个根路径和请求URL路径，
+在Tomcat中我们通常采用如下的两种方式创建一个Context：在\webapps目录中创建一个目录，这个时候将自动创建一个context，默认context的访问url为http://host:port/dirname
+；在server.xml文件的元素中增加context元素。这样的话，我们就可以通过http://host:port/mypath访问上面配置的context了。</p>
+</div>
+<div class="section" id="web-xml">
+<h4>web.xml<a class="headerlink" href="#web-xml" title="永久链接至标题">¶</a></h4>
+<p>遵循Servlet规范标准的配置文件，用于配置servlet，并为所有的Web应用程序提供包括MIME映射等默认配置信息</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span><span class="mi">404</span><span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">location</span><span class="o">&gt;/</span><span class="mf">404.</span><span class="n">html</span><span class="o">&lt;/</span><span class="n">location</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span><span class="mi">500</span><span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">code</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="n">location</span><span class="o">&gt;/</span><span class="mf">500.</span><span class="n">html</span><span class="o">&lt;/</span><span class="n">location</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">error</span><span class="o">-</span><span class="n">page</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="catalina-properties">
+<h4>catalina.properties<a class="headerlink" href="#catalina-properties" title="永久链接至标题">¶</a></h4>
+<p>Tomcat内部package的定义及访问相关的控制，也包括对通过类装载器装载的内容的控制；Tomcat在启动时会事先读取此文件的相关设置</p>
+<p><a class="reference external" href="http://tomcat.apache.org/tomcat-7.0-doc/class-loader-howto.html">Class Loader
+HOW-TO</a></p>
+<p><a class="reference external" href="http://www.linuxidc.com/Linux/2011-08/41684.htm">理解Tomcat的Classpath-常见问题以及如何解决</a></p>
+</div>
+</div>
+<div class="section" id="lib">
+<h3>lib<a class="headerlink" href="#lib" title="永久链接至标题">¶</a></h3>
+<p>存放tomcat所需的jar文件</p>
+</div>
+<div class="section" id="logs">
+<h3>logs<a class="headerlink" href="#logs" title="永久链接至标题">¶</a></h3>
+<p>存放日志文件</p>
+</div>
+<div class="section" id="temp">
+<h3>temp<a class="headerlink" href="#temp" title="永久链接至标题">¶</a></h3>
+<p>临时文件</p>
+</div>
+<div class="section" id="webapp">
+<h3>webapp<a class="headerlink" href="#webapp" title="永久链接至标题">¶</a></h3>
+<p>存放应用程序示例，部署的应用程序也要放到此目录</p>
+</div>
+<div class="section" id="work">
+<h3>work<a class="headerlink" href="#work" title="永久链接至标题">¶</a></h3>
+<p>存放jsp编译后产生的class文件</p>
+</div>
+</div>
+<div class="section" id="connector">
+<h2>connector模式<a class="headerlink" href="#connector" title="永久链接至标题">¶</a></h2>
+<p>tomcat的connector模式有3种</p>
+<ul class="simple">
+<li>HTTP connector</li>
+</ul>
+<p>基于HTTP协议，负责建立HTTP连接。它又分为BIO http connector与NIO http
+connector两种。</p>
+<ol class="arabic simple">
+<li>BIO(blocking I/O) HTTP connector
+默认的模式,阻塞式I/O操作,性能非常低下,没有经过任何优化处理和支持.</li>
+<li>NIO(new I/O) HTTP connector
+是一个基于缓冲区、并能提供非阻塞I/O操作的Java
+API，因此nio也被看成是non-blocking
+I/O的缩写,拥有比传统I/O操作(bio)更好的并发运行性能.修改 connector
+节点中的 protocol 为 org.apache.coyote.http11.Http11NioProtocol 即可</li>
+</ol>
+<ul class="simple">
+<li>AJP connector</li>
+</ul>
+<p>基于AJP协议，AJP是专门设计用来为tomcat与http服务器之间通信专门定制的协议，能提供较高的通信速度和效率。如与Apache服务器集成时，采用这个协议。</p>
+<ul class="simple">
+<li>APR HTTP connector <a class="footnote-reference" href="#id9" id="id5">[3]</a></li>
+</ul>
+<p>从系统级别来解决异步的IO问题,大幅度的提高性能，默认支持，但需要安装APR
+library | JNI wrappers for APR used by Tomcat (libtcnative) <a class="footnote-reference" href="#id10" id="id6">[4]</a> |
+OpenSSL libraries</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libapr1</span><span class="o">-</span><span class="n">dev</span> <span class="n">libssl</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">tar</span> <span class="n">zxvf</span> <span class="n">tomcat</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">tomcat</span><span class="o">-</span><span class="n">native</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">tomcat</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">tomcat</span><span class="o">-</span><span class="n">native</span><span class="o">-</span><span class="mf">1.1</span><span class="o">.*-</span><span class="n">src</span>
+<span class="o">./</span><span class="n">configure</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">apr</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">apr</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">config</span> \
+           <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">java</span><span class="o">-</span><span class="n">home</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">java</span> \
+           <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">ssl</span><span class="o">=</span><span class="n">yes</span> \
+           <span class="o">--</span><span class="n">prefix</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span>
+<span class="n">make</span> <span class="o">&amp;&amp;</span> <span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+<p>libtcnative 将安装至 /usr/lib</p>
+<p>Tomcat connectors 会自动开启对 APR 模式</p>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="http://imtiger.net/blog/2013/10/16/tomcat-architecture/">Tomcat总体结构</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="http://tomcat.apache.org/tomcat-7.0-doc/config/http.html">The HTTP Connector</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td><a class="reference external" href="http://tomcat.apache.org/tomcat-7.0-doc/apr.html">Apache Portable Runtime (APR) based Native library for omcat</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td><a class="reference external" href="http://tomcat.apache.org/native-doc/">Tomcat Native</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ulimit.html" class="btn btn-neutral float-right" title="Ulimit - 用户资源控制" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="svn.html" class="btn btn-neutral" title="SVN - 上一代版本控制系统" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

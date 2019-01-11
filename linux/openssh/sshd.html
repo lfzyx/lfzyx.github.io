@@ -1,0 +1,383 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sshd &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="ssh-keygen" href="ssh-keygen.html" />
+    <link rel="prev" title="scp" href="scp.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Openssh - 安全传输协议</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="index.html#id3">安装</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="index.html#id4">组件</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="scp.html">scp</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">sshd</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ssh-keygen.html">ssh-keygen</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Linux</a> &raquo;</li>
+        
+          <li><a href="index.html">Openssh - 安全传输协议</a> &raquo;</li>
+        
+      <li>sshd</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/openssh/sshd.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sshd">
+<h1>sshd<a class="headerlink" href="#sshd" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>配置<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Port 监听端口
+ListenAddress 监听地址
+Protocol 2 使用SSH Protocol 2
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+UsePrivilegeSeparation yes 使用权限分离
+KeyRegenerationInterval 3600
+ServerKeyBits 768
+SyslogFacility AUTH
+LogLevel [DEBUG] 日志级别
+LoginGraceTime 登录验证过程中，切断连接之前服务器需要等待的时间
+PermitRootLogin [no/yes] 允许root登录
+StrictModes yes
+MaxAuthTries 最大错误尝试的次数
+RSAAuthentication [no/yes] 允许RSA验证
+PubkeyAuthentication [no/yes]
+AuthorizedKeysFile %h/.ssh/* 公钥路径
+IgnoreRhosts yes
+RhostsRSAAuthentication no
+HostbasedAuthentication no
+IgnoreUserKnownHosts yes
+PermitEmptyPasswords [no/yes] 允许空密码
+ChallengeResponseAuthentication no 是否响应任何形式的认证
+PasswordAuthentication [no/yes] 允许口令验证
+KerberosAuthentication no
+KerberosGetAFSToken no
+KerberosOrLocalPasswd yes
+KerberosTicketCleanup yes
+GSSAPIAuthentication yes
+GSSAPICleanupCredentials yes
+X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd no 设置登录后是否显示一些信息，即打印出/etc/motd文件的内容，考虑到安全可以设置为no。
+PrintLastLog 设置登录时打印最后一次登录记录
+TCPKeepAlive yes
+UseLogin no
+MaxStartups  2:50:3 设置从第2个尚未登录的连接开始，以50%的几率拒绝新连接，直到全部尚未登录的连接数达到3
+Banner 登录后的提示消息
+UsePAM 使用PAM来管理认证
+ClientAliveInterval 客户端超时
+ClientAliveCountMax 客户端超时最大次数
+UsePrivilegeSeparation 设置用户的权限
+Compression 设置是否可以是用压缩命令，可以设置为yes
+AllowUsers [user@host]允许的用户
+AllowGroups [group]允许的组
+DenyUsers [user@host]拒绝的用户
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>安全<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="tcp-wrappers">
+<h3>TCP Wrappers<a class="headerlink" href="#tcp-wrappers" title="永久链接至标题">¶</a></h3>
+<p>使用TCP wrappers对sshd进行tcp包裹,只允许特定的主机才能连接到ssh服务端</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>vi /etc/hosts.allow
+sshd:*.*.*.* 允许该IP SSH连接
+vi /etc/hosts.deny
+sshd:ALL 除了hosts.allow中允许的，其他IP都禁止SSH连接
+</pre></div>
+</div>
+</div>
+<div class="section" id="pam">
+<h3>PAM<a class="headerlink" href="#pam" title="永久链接至标题">¶</a></h3>
+<p>利用 <a class="reference internal" href="../pam.html"><span class="doc">PAM - 可插拔认证模块</span></a> 可做双因素登录认证 <a class="footnote-reference" href="#id7" id="id3">[1]</a> <a class="footnote-reference" href="#id8" id="id4">[2]</a></p>
+<p><em>注：key的优先级高于PAM，在key存在的情况下可以无视PAM认证直接用key登录，当然你也可以为key设置钩子command来解决这个问题</em></p>
+</div>
+<div class="section" id="knockd">
+<h3>knockd<a class="headerlink" href="#knockd" title="永久链接至标题">¶</a></h3>
+<p>增强计算机安全性的最后一种方案是最激进的：关闭打开的端口，这会让任何攻击都无法攻破您的计算机. <a class="footnote-reference" href="#id9" id="id5">[3]</a> 只向能够提供
+“秘密敲门暗号” 的用户开放所需的端口，让用户能够输入密码并访问计算机。
+敲门守护进程 knockd；它监视敲门序列，当发现有效的序列时执行相应的操作。</p>
+</div>
+<div class="section" id="web-based">
+<h3>Web-based<a class="headerlink" href="#web-based" title="永久链接至标题">¶</a></h3>
+<p>通过web浏览器访问ssh服务  <a class="footnote-reference" href="#id10" id="id6">[4]</a></p>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><a class="reference external" href="http://ben.akrin.com/?p=1068">2-factor authentication &amp; writing PAM modules for Ubuntu</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="https://code.google.com/p/google-authenticator/">google-authenticator</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td><a class="reference external" href="http://www.ibm.com/developerworks/cn/aix/library/au-sshlocks/">保护 SSH 的三把锁</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id6">[4]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Web-based_SSH">Web-based SSH</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ssh-keygen.html" class="btn btn-neutral float-right" title="ssh-keygen" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="scp.html" class="btn btn-neutral" title="scp" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

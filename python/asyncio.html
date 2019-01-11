@@ -1,0 +1,355 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>asyncio - 异步 I/O, 事件循环，协程和任务 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="C" href="../c/index.html" />
+    <link rel="prev" title="Python" href="index.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Python</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">asyncio - 异步 I/O, 事件循环，协程和任务</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id4">语法 </a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Python</a> &raquo;</li>
+        
+      <li>asyncio - 异步 I/O, 事件循环，协程和任务</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/python/asyncio.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="asyncio-i-o">
+<h1>asyncio - 异步 I/O, 事件循环，协程和任务<a class="headerlink" href="#asyncio-i-o" title="永久链接至标题">¶</a></h1>
+<p>CPU 的执行是顺序的，线程是操作系统提供的一种机制，允许我们在操作系统的层面上实现“并行”。
+而协程则可以认为是应用程序提供的一种机制（用户或库来完成），允许我们在应用程序的层面上实现“并行”。</p>
+<p>由于本质上程序是顺序执行的，要实现这种“并行”的假像，我们需要一种机制，来“暂停”当前的执行流，并在之后“恢复”之前的执行流。
+这在操作系统及多线程/多进程中称为“上下文切换” (context switch)。
+其中“上下文”记录了某个线程执行的状态，包括线程里用到的各个变量，线程的调用栈等。
+而“切换”指的就是保存某个线程当前的运行状态，之后再从之前的状态中恢复。只不过线程相关的工作是由操作系统完成，而协程则是由应用程序自己来完成。</p>
+<p>与线程不同的时，协程完成的功能通常较小，所以会有需求将不同的协程串起来，我们暂时称它为协程链 (coroutine chain)。 <a class="footnote-reference" href="#id5" id="id1">[1]</a></p>
+<p>此模块为使用协程编写单线程并发代码，sockets 和其他资源的 I/O 多路复用，运行网络客户端和服务端提供了基础架构。以下是更详细的包内容列表：</p>
+<ul class="simple">
+<li>可用于多种特定系统具体实现的可插拔事件循环</li>
+<li>传输和协议抽象</li>
+<li>支持 TCP、 UDP、 SSL、 子进程管道，延迟通信以及其他的具体支持（有些可能是系统相关的)</li>
+<li>一个模仿 concurrent.futures 模块但适合在事件循环中使用的 Future 类</li>
+<li>协程和任务基于 yield from，帮助以顺序的方式编写并发代码</li>
+<li>对 Future 和协程提供终止支持</li>
+<li>单线程中，在协程间使用同步原语来模拟那些线程模块</li>
+<li>一个用于传递工作的线程池的接口，当年你不得不使用一个阻塞 I/O 调用的库的时候使用</li>
+</ul>
+<p>在使用 asyncio 模块进行异步编程前需要理解以下概念 <a class="footnote-reference" href="#id6" id="id2">[2]</a> ：</p>
+<ul class="simple">
+<li>Event loop
+事件循环复用 I/O，利用 selectors 工作，序列化事件处理。
+程序开启一个无限的循环，把一些函数注册到事件循环上。当满足事件发生的时候，调用相应的协程函数。</li>
+<li>coroutine
+协程对象，指一个使用async def 关键字定义的函数，它的调用不会立即执行函数，而是会返回一个协程对象。
+协程不能直接运行, 需要把协程对象注册到事件循环，由事件循环调用。</li>
+<li>Futures
+这是那些延迟生产者的抽象。
+asyncio.Future 类与 Python3.2 中引入的 Future 类似。即，concurrent.futures.Future类。
+但是，在这种情况下，Future 适用于协程。该 asyncio 模块不适用现有的concurrent.futures.Future类，因为它被设计用于线程工作。
+该模块鼓励在协程中使用 await 锁住当前的任务来等待结果，从而避免阻塞你的应用。
+你的协程代码块；也就是说，你的协程被挂起，直到产生了结果，但是事件循环却没有被阻塞。
+若同一个 event loop 还有其他的任务序列，他们可能会运行。
+当协程产生结果的时候，暂停的协程会恢复，你可以编写同顺序执行一样的代码。
+你可以阅读代码，无需考虑 await 的存在。当你使用在函数中使用 await 返回一个 await 对象，你可以忘记 Future 执行的特殊的细节和它特定的 API。
+如果产生异常，比如你调用了函数，它没有返回 Future，却做了顺序执行，那么异常会被抛出。
+所以，编写异步代码同编写同步代码一样，除了添加 await。</li>
+<li>Tasks
+每个 Task 是一个被 Future 包裹的协程，随着 event loop 的运行而运行。
+asyncio.Task 类是 asyncio.Future 的子类。tasks 也与 await 一起工作。</li>
+</ul>
+<div class="section" id="id4">
+<h2>语法 <a class="footnote-reference" href="#id7" id="id3">[3]</a><a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>async def 用于定义协程的关键字</li>
+<li>await 挂起阻塞的异步调用接口</li>
+<li>asyncio.get_event_loop 创建一个默认的事件循环</li>
+<li>asyncio.gather 接受一堆协程</li>
+<li>asyncio.wait 接受一个协程组成的列表</li>
+</ul>
+<p>下面是一个示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">asyncio</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">hello_world</span><span class="p">():</span>  <span class="c1"># 创建一个协程（async def），它是 Future 对象</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello World!&quot;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bye World!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;Hello World&quot;</span>
+
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">hello_lfzyx</span><span class="p">():</span>  <span class="c1"># 创建一个协程（async def），它是 Future 对象</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hello lfzyx!&quot;</span><span class="p">)</span>
+    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bye lfzyx!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="s2">&quot;lfzyx&quot;</span>
+
+
+<span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">re</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Callback: &#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">result</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">get_event_loop</span><span class="p">()</span>  <span class="c1"># 创建一个默认的事件循环</span>
+    <span class="n">task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">hello_world</span><span class="p">(),</span> <span class="n">hello_lfzyx</span><span class="p">())</span>
+    <span class="n">task</span><span class="o">.</span><span class="n">add_done_callback</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">run_until_complete</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>  <span class="c1"># 将协程注册到事件循环，并启动事件循环</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  <span class="c1"># 关闭事件循环</span>
+</pre></div>
+</div>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://lotabout.me/2017/understand-python-asyncio/">理解 Python asyncio</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="https://vvl.me/2016/03/python-coroutines/">Python之asyncio</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[3]</a></td><td><a class="reference external" href="https://www.jianshu.com/p/b5e347b3a17c">Python黑魔法</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label">[4]</td><td><a class="reference external" href="http://www.dongwm.com/archives/使用Python进行并发编程-asyncio篇/">使用Python进行并发编程</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../c/index.html" class="btn btn-neutral float-right" title="C" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

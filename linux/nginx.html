@@ -1,0 +1,599 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Nginx - 高性能 web 服务器 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Crontab - 周期性任务" href="crontab.html" />
+    <link rel="prev" title="sar - 收集，报告和保存系统活动信息" href="sysstat/sar.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Nginx - 高性能 web 服务器</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">安装</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">编译</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apt">apt</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#event">event</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#http">http</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#server">server</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#location">location</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Nginx - 高性能 web 服务器</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/nginx.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nginx-web">
+<h1>Nginx - 高性能 web 服务器<a class="headerlink" href="#nginx-web" title="永久链接至标题">¶</a></h1>
+<p><a class="reference external" href="http://nginx.org/">Nginx</a> （发音同engine x）是一款由俄罗斯程序员Igor Sysoev所开发轻量级的网页服务器、反向代理服务器以及电子邮件（IMAP/POP3）代理服务器。整体采用模块化设计是nginx的一个重大特点，甚至http服务器核心功能也是一个模块。要注意的是：nginx的模块是静态的，添加和删除模块都要对nginx进行重新编译，这一点与Apache的动态模块完全不同。</p>
+<div class="section" id="id1">
+<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id2">
+<h3>编译<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">libpcre3</span><span class="o">-</span><span class="n">dev</span> <span class="n">zlib1g</span><span class="o">-</span><span class="n">dev</span>
+<span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">nginx</span><span class="o">-</span><span class="mf">1.12</span><span class="o">.</span><span class="mf">2.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">tar</span> <span class="n">zxvf</span> <span class="n">nginx</span><span class="o">-</span><span class="mf">1.12</span><span class="o">.</span><span class="mf">2.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">cd</span> <span class="n">nginx</span><span class="o">-</span><span class="mf">1.12</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">useradd</span> <span class="n">nginx</span>
+<span class="o">./</span><span class="n">configur</span>
+<span class="n">make</span>
+<span class="n">make</span> <span class="n">install</span>
+</pre></div>
+</div>
+<div class="section" id="id3">
+<h4>选项<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h4>
+<p>运行./configure 时可用的选项</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">help</span>                             <span class="n">列出选项列表</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>--prefix=PATH                      安装路径，默认为 /usr/local/nginx
+--sbin-path=PATH                   二进制可执行文件路径，默认为 &lt;prefix&gt;/sbin/nginx
+--conf-path=PATH                   nginx.conf路径，默认为 &lt;prefix&gt;/conf/nginx.conf
+--error-log-path=PATH              错误日志路径，默认为&lt;prefix&gt;/logs/error.log
+--pid-path=PATH                    nginx.pid 路径，默认为&lt;prefix&gt;/logs/nginx.pid
+--lock-path=PATH                   nginx.lock 路径，默认为&lt;prefix&gt;/logs/nginx.lock
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">user</span><span class="o">=</span><span class="n">USER</span>                        <span class="n">为</span> <span class="n">worker</span> <span class="n">processes</span> <span class="n">设定非特权用户</span><span class="p">,</span><span class="n">默认为</span> <span class="n">nobody</span>
+<span class="o">--</span><span class="n">group</span><span class="o">=</span><span class="n">GROUP</span>                      <span class="n">为</span> <span class="n">worker</span> <span class="n">processes</span> <span class="n">设定非特权组</span><span class="p">,</span><span class="n">默认为</span> <span class="n">nobody</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">builddir</span><span class="o">=</span><span class="n">DIR</span>                     <span class="n">设置构建目录</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">rtsig_module</span>                <span class="n">enable</span> <span class="n">rtsig</span> <span class="n">module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">select_module</span>               <span class="n">enable</span> <span class="n">select</span> <span class="n">module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">select_module</span>            <span class="n">disable</span> <span class="n">select</span> <span class="n">module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">poll_module</span>                 <span class="n">enable</span> <span class="n">poll</span> <span class="n">module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">poll_module</span>              <span class="n">disable</span> <span class="n">poll</span> <span class="n">module</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">file</span><span class="o">-</span><span class="n">aio</span>                    <span class="n">enable</span> <span class="n">file</span> <span class="n">AIO</span> <span class="n">support</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">ipv6</span>                        <span class="n">enable</span> <span class="n">IPv6</span> <span class="n">support</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_ssl_module</span>             <span class="n">enable</span> <span class="n">ngx_http_ssl_module</span>  <span class="n">需要安装</span> <span class="n">OpenSSL</span> <span class="n">library</span>  <span class="c1"># yum install openssl-devel | # apt-get install libssl-dev</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_spdy_module</span>            <span class="n">enable</span> <span class="n">ngx_http_spdy_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_realip_module</span>          <span class="n">enable</span> <span class="n">ngx_http_realip_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_addition_module</span>        <span class="n">enable</span> <span class="n">ngx_http_addition_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_xslt_module</span>            <span class="n">enable</span> <span class="n">ngx_http_xslt_module</span>  <span class="n">需要安装</span> <span class="n">libxml2</span><span class="o">/</span><span class="n">libxslt</span> <span class="n">libraries</span> <span class="c1"># yum install libxslt-devel | # apt-get install libxslt1-dev</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_image_filter_module</span>    <span class="n">enable</span> <span class="n">ngx_http_image_filter_module</span> <span class="n">需要安装</span> <span class="n">GD</span> <span class="n">library</span> <span class="c1"># yum install gd-devel | # apt-get install libgd2-xpm-dev</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_geoip_module</span>           <span class="n">enable</span> <span class="n">ngx_http_geoip_module</span> <span class="n">需要安装</span> <span class="n">GeoIP</span> <span class="n">library</span> <span class="c1"># yum install GeoIP-devel | # apt-get install libgeoip-dev</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_sub_module</span>             <span class="n">enable</span> <span class="n">ngx_http_sub_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_dav_module</span>             <span class="n">enable</span> <span class="n">ngx_http_dav_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_flv_module</span>             <span class="n">enable</span> <span class="n">ngx_http_flv_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_mp4_module</span>             <span class="n">enable</span> <span class="n">ngx_http_mp4_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_gunzip_module</span>          <span class="n">enable</span> <span class="n">ngx_http_gunzip_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_gzip_static_module</span>     <span class="n">enable</span> <span class="n">ngx_http_gzip_static_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_auth_request_module</span>    <span class="n">enable</span> <span class="n">ngx_http_auth_request_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_random_index_module</span>    <span class="n">enable</span> <span class="n">ngx_http_random_index_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_secure_link_module</span>     <span class="n">enable</span> <span class="n">ngx_http_secure_link_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_degradation_module</span>     <span class="n">enable</span> <span class="n">ngx_http_degradation_module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_stub_status_module</span>     <span class="n">enable</span> <span class="n">ngx_http_stub_status_module</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_charset_module</span>      <span class="n">disable</span> <span class="n">ngx_http_charset_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_gzip_module</span>         <span class="n">disable</span> <span class="n">ngx_http_gzip_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_ssi_module</span>          <span class="n">disable</span> <span class="n">ngx_http_ssi_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_userid_module</span>       <span class="n">disable</span> <span class="n">ngx_http_userid_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_access_module</span>       <span class="n">disable</span> <span class="n">ngx_http_access_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_auth_basic_module</span>   <span class="n">disable</span> <span class="n">ngx_http_auth_basic_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_autoindex_module</span>    <span class="n">disable</span> <span class="n">ngx_http_autoindex_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_geo_module</span>          <span class="n">disable</span> <span class="n">ngx_http_geo_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_map_module</span>          <span class="n">disable</span> <span class="n">ngx_http_map_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_split_clients_module</span> <span class="n">disable</span> <span class="n">ngx_http_split_clients_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_referer_module</span>      <span class="n">disable</span> <span class="n">ngx_http_referer_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_rewrite_module</span>      <span class="n">disable</span> <span class="n">ngx_http_rewrite_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_proxy_module</span>        <span class="n">disable</span> <span class="n">ngx_http_proxy_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_fastcgi_module</span>      <span class="n">disable</span> <span class="n">ngx_http_fastcgi_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_uwsgi_module</span>        <span class="n">disable</span> <span class="n">ngx_http_uwsgi_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_scgi_module</span>         <span class="n">disable</span> <span class="n">ngx_http_scgi_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_memcached_module</span>    <span class="n">disable</span> <span class="n">ngx_http_memcached_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_limit_conn_module</span>   <span class="n">disable</span> <span class="n">ngx_http_limit_conn_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_limit_req_module</span>    <span class="n">disable</span> <span class="n">ngx_http_limit_req_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_empty_gif_module</span>    <span class="n">disable</span> <span class="n">ngx_http_empty_gif_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_browser_module</span>      <span class="n">disable</span> <span class="n">ngx_http_browser_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_upstream_ip_hash_module</span>
+                                   <span class="n">disable</span> <span class="n">ngx_http_upstream_ip_hash_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_upstream_least_conn_module</span>
+                                   <span class="n">disable</span> <span class="n">ngx_http_upstream_least_conn_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http_upstream_keepalive_module</span>
+                                   <span class="n">disable</span> <span class="n">ngx_http_upstream_keepalive_module</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">http_perl_module</span>            <span class="n">enable</span> <span class="n">ngx_http_perl_module</span> <span class="n">需要安装</span> <span class="n">perl</span> <span class="c1"># yum install perl-ExtUtils-Embed | # apt-get install libperl-dev</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">perl_modules_path</span><span class="o">=</span><span class="n">PATH</span>      <span class="nb">set</span> <span class="n">Perl</span> <span class="n">modules</span> <span class="n">path</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">perl</span><span class="o">=</span><span class="n">PATH</span>                   <span class="nb">set</span> <span class="n">perl</span> <span class="n">binary</span> <span class="n">pathname</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>--http-log-path=PATH               set http access log pathname
+--http-client-body-temp-path=PATH  http 客户端请求的临时文件路径，默认为&lt;prefix&gt;/client_body_temp
+--http-proxy-temp-path=PATH        http 代理的临时文件路径，默认为&lt;prefix&gt;/proxy_temp
+--http-fastcgi-temp-path=PATH      http fastcgi 的临时文件路径，默认为&lt;prefix&gt;/fastcgi_temp
+--http-uwsgi-temp-path=PATH        http uwsgi 的临时文件路径
+--http-scgi-temp-path=PATH         http scgi 的临时文件路径
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http</span>                     <span class="n">disable</span> <span class="n">HTTP</span> <span class="n">server</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">http</span><span class="o">-</span><span class="n">cache</span>               <span class="n">disable</span> <span class="n">HTTP</span> <span class="n">cache</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">mail</span>                        <span class="n">enable</span> <span class="n">POP3</span><span class="o">/</span><span class="n">IMAP4</span><span class="o">/</span><span class="n">SMTP</span> <span class="n">proxy</span> <span class="n">module</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">mail_ssl_module</span>             <span class="n">enable</span> <span class="n">ngx_mail_ssl_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">mail_pop3_module</span>         <span class="n">disable</span> <span class="n">ngx_mail_pop3_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">mail_imap_module</span>         <span class="n">disable</span> <span class="n">ngx_mail_imap_module</span>
+<span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">mail_smtp_module</span>         <span class="n">disable</span> <span class="n">ngx_mail_smtp_module</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">google_perftools_module</span>     <span class="n">enable</span> <span class="n">ngx_google_perftools_module</span> <span class="n">需要安装</span> <span class="n">Google</span> <span class="n">perftools</span> <span class="n">library</span> <span class="c1"># yum install gperftools-devel | # apt-get install libgoogle-perftools-dev</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cpp_test_module</span>             <span class="n">enable</span> <span class="n">ngx_cpp_test_module</span> <span class="n">需要安装c</span><span class="o">++</span> <span class="c1"># yum install gcc-c++ | # apt-get install libstdc++6-4.7-dev</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">add</span><span class="o">-</span><span class="n">module</span><span class="o">=</span><span class="n">PATH</span>                  <span class="n">enable</span> <span class="n">an</span> <span class="n">external</span> <span class="n">module</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cc</span><span class="o">=</span><span class="n">PATH</span>                     <span class="n">C编译器路径</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cpp</span><span class="o">=</span><span class="n">PATH</span>                    <span class="n">C预处理器路径</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cc</span><span class="o">-</span><span class="n">opt</span><span class="o">=</span><span class="n">OPTIONS</span>              <span class="n">额外的C编译器选项</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">ld</span><span class="o">-</span><span class="n">opt</span><span class="o">=</span><span class="n">OPTIONS</span>              <span class="n">额外的连接器选项</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">cpu</span><span class="o">-</span><span class="n">opt</span><span class="o">=</span><span class="n">CPU</span>                 <span class="n">指定编译的CPU</span><span class="p">,</span> <span class="n">有效值</span><span class="p">:</span>
+                                   <span class="n">pentium</span><span class="p">,</span> <span class="n">pentiumpro</span><span class="p">,</span> <span class="n">pentium3</span><span class="p">,</span> <span class="n">pentium4</span><span class="p">,</span>
+                                   <span class="n">athlon</span><span class="p">,</span> <span class="n">opteron</span><span class="p">,</span> <span class="n">sparc32</span><span class="p">,</span> <span class="n">sparc64</span><span class="p">,</span> <span class="n">ppc64</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="n">without</span><span class="o">-</span><span class="n">pcre</span>                     <span class="n">disable</span> <span class="n">PCRE</span> <span class="n">library</span> <span class="n">usage</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">pcre</span>                        <span class="n">force</span> <span class="n">PCRE</span> <span class="n">library</span> <span class="n">usage</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">pcre</span><span class="o">=</span><span class="n">DIR</span>                    <span class="nb">set</span> <span class="n">path</span> <span class="n">to</span> <span class="n">PCRE</span> <span class="n">library</span> <span class="n">sources</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">pcre</span><span class="o">-</span><span class="n">opt</span><span class="o">=</span><span class="n">OPTIONS</span>            <span class="nb">set</span> <span class="n">additional</span> <span class="n">build</span> <span class="n">options</span> <span class="k">for</span> <span class="n">PCRE</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">pcre</span><span class="o">-</span><span class="n">jit</span>                    <span class="n">build</span> <span class="n">PCRE</span> <span class="k">with</span> <span class="n">JIT</span> <span class="n">compilation</span> <span class="n">support</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">md5</span><span class="o">=</span><span class="n">DIR</span>                     <span class="nb">set</span> <span class="n">path</span> <span class="n">to</span> <span class="n">md5</span> <span class="n">library</span> <span class="n">sources</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">md5</span><span class="o">-</span><span class="n">opt</span><span class="o">=</span><span class="n">OPTIONS</span>             <span class="nb">set</span> <span class="n">additional</span> <span class="n">build</span> <span class="n">options</span> <span class="k">for</span> <span class="n">md5</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">md5</span><span class="o">-</span><span class="n">asm</span>                     <span class="n">use</span> <span class="n">md5</span> <span class="n">assembler</span> <span class="n">sources</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">sha1</span><span class="o">=</span><span class="n">DIR</span>                    <span class="nb">set</span> <span class="n">path</span> <span class="n">to</span> <span class="n">sha1</span> <span class="n">library</span> <span class="n">sources</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">sha1</span><span class="o">-</span><span class="n">opt</span><span class="o">=</span><span class="n">OPTIONS</span>            <span class="nb">set</span> <span class="n">additional</span> <span class="n">build</span> <span class="n">options</span> <span class="k">for</span> <span class="n">sha1</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">sha1</span><span class="o">-</span><span class="n">asm</span>                    <span class="n">use</span> <span class="n">sha1</span> <span class="n">assembler</span> <span class="n">sources</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">zlib</span><span class="o">=</span><span class="n">DIR</span>                    <span class="nb">set</span> <span class="n">path</span> <span class="n">to</span> <span class="n">zlib</span> <span class="n">library</span> <span class="n">sources</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">zlib</span><span class="o">-</span><span class="n">opt</span><span class="o">=</span><span class="n">OPTIONS</span>            <span class="nb">set</span> <span class="n">additional</span> <span class="n">build</span> <span class="n">options</span> <span class="k">for</span> <span class="n">zlib</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">zlib</span><span class="o">-</span><span class="n">asm</span><span class="o">=</span><span class="n">CPU</span>                <span class="n">use</span> <span class="n">zlib</span> <span class="n">assembler</span> <span class="n">sources</span> <span class="n">optimized</span>
+                                   <span class="k">for</span> <span class="n">the</span> <span class="n">specified</span> <span class="n">CPU</span><span class="p">,</span> <span class="n">valid</span> <span class="n">values</span><span class="p">:</span>
+                                   <span class="n">pentium</span><span class="p">,</span> <span class="n">pentiumpro</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">libatomic</span>                   <span class="n">force</span> <span class="n">libatomic_ops</span> <span class="n">library</span> <span class="n">usage</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">libatomic</span><span class="o">=</span><span class="n">DIR</span>               <span class="nb">set</span> <span class="n">path</span> <span class="n">to</span> <span class="n">libatomic_ops</span> <span class="n">library</span> <span class="n">sources</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">openssl</span><span class="o">=</span><span class="n">DIR</span>                 <span class="nb">set</span> <span class="n">path</span> <span class="n">to</span> <span class="n">OpenSSL</span> <span class="n">library</span> <span class="n">sources</span>
+<span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">openssl</span><span class="o">-</span><span class="n">opt</span><span class="o">=</span><span class="n">OPTIONS</span>         <span class="nb">set</span> <span class="n">additional</span> <span class="n">build</span> <span class="n">options</span> <span class="k">for</span> <span class="n">OpenSSL</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">debug</span>                       <span class="n">启用调试日志</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h4>示例<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h4>
+<blockquote>
+<div><p>依据apt标准编译</p>
+<p>./configure
+–prefix=/etc/nginx
+–sbin-path=/usr/sbin/nginx
+–modules-path=/usr/lib/nginx/modules
+–conf-path=/etc/nginx/nginx.conf
+–error-log-path=/var/log/nginx/error.log
+–http-log-path=/var/log/nginx/access.log
+–pid-path=/var/run/nginx.pid
+–lock-path=/var/run/nginx.lock
+–http-client-body-temp-path=/var/cache/nginx/client_temp
+–http-proxy-temp-path=/var/cache/nginx/proxy_temp
+–http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp
+–http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp
+–http-scgi-temp-path=/var/cache/nginx/scgi_temp
+–user=nginx
+–group=nginx
+–with-compat
+–with-file-aio
+–with-threads
+–with-http_addition_module
+–with-http_auth_request_module
+–with-http_dav_module
+–with-http_flv_module
+–with-http_gunzip_module
+–with-http_gzip_static_module
+–with-http_mp4_module
+–with-http_random_index_module
+–with-http_realip_module
+–with-http_secure_link_module
+–with-http_slice_module
+–with-http_ssl_module
+–with-http_stub_status_module
+–with-http_sub_module
+–with-http_v2_module
+–with-mail
+–with-mail_ssl_module
+–with-stream
+–with-stream_realip_module
+–with-stream_ssl_module
+–with-stream_ssl_preread_module
+–with-cc-opt=’-g -O2 -fdebug-prefix-map=/data/builder/debuild/nginx-1.12.2/debian/debuild-base/nginx-1.12.2=. -specs=/usr/share/dpkg/no-pie-compile.specs -fstack-protector-strong -Wformat -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -fPIC’ –with-ld-opt=’-specs=/usr/share/dpkg/no-pie-link.specs -Wl,-z,relro -Wl,-z,now -Wl,–as-needed -pie’</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="apt">
+<h3>apt<a class="headerlink" href="#apt" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">keys</span><span class="o">/</span><span class="n">nginx_signing</span><span class="o">.</span><span class="n">key</span>
+<span class="n">apt</span><span class="o">-</span><span class="n">key</span> <span class="n">add</span> <span class="n">nginx_signing</span><span class="o">.</span><span class="n">key</span>
+</pre></div>
+</div>
+<p>编辑/etc/apt/sources.list，加入以下内容：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">deb</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">mainline</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span> <span class="n">codename</span> <span class="n">nginx</span>
+<span class="n">deb</span><span class="o">-</span><span class="n">src</span> <span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">nginx</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">packages</span><span class="o">/</span><span class="n">mainline</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span> <span class="n">codename</span> <span class="n">nginx</span>
+</pre></div>
+</div>
+<p>根据操作系统的版本，将codename替换成 stretch 或者 jessie</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">&lt;</span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="o">&gt;</span> <span class="n">update</span>
+<span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="o">&lt;</span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="o">&gt;</span> <span class="n">install</span> <span class="n">nginx</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>配置<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">user</span>  <span class="n">nginx</span><span class="p">;</span>
+<span class="n">worker_processes</span>  <span class="n">auto</span><span class="p">;</span>
+<span class="n">error_log</span>  <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">error</span><span class="o">.</span><span class="n">log</span> <span class="n">warn</span><span class="p">;</span>
+<span class="n">pid</span>        <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">nginx</span><span class="o">.</span><span class="n">pid</span><span class="p">;</span>
+<span class="n">worker_rlimit_nofile</span> <span class="mi">16384</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="section" id="event">
+<h3>event<a class="headerlink" href="#event" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">events</span> <span class="p">{</span>
+   <span class="n">worker_connections</span>  <span class="mi">2048</span><span class="p">;</span>
+   <span class="n">multi_accept</span> <span class="n">on</span><span class="p">;</span>
+   <span class="n">use</span> <span class="n">epoll</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="http">
+<h3>http<a class="headerlink" href="#http" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">include</span>       <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">mime</span><span class="o">.</span><span class="n">types</span><span class="p">;</span>
+<span class="n">default_type</span>  <span class="n">application</span><span class="o">/</span><span class="n">octet</span><span class="o">-</span><span class="n">stream</span><span class="p">;</span>
+<span class="n">log_format</span>  <span class="n">main</span>  <span class="s1">&#39;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#39;</span>
+                 <span class="s1">&#39;$status $body_bytes_sent &quot;$http_referer&quot; &#39;</span>
+                 <span class="s1">&#39;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#39;</span><span class="p">;</span>
+<span class="n">sendfile</span>        <span class="n">on</span><span class="p">;</span>
+<span class="n">tcp_nopush</span> <span class="n">on</span><span class="p">;</span>
+<span class="n">keepalive_timeout</span>  <span class="mi">65</span><span class="p">;</span>
+<span class="n">server_tokens</span> <span class="n">off</span><span class="p">;</span>
+<span class="n">gzip</span>  <span class="n">on</span><span class="p">;</span>
+<span class="n">gzip_min_length</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="n">gzip_comp_level</span> <span class="mi">4</span><span class="p">;</span>
+<span class="n">gzip_types</span> <span class="n">text</span><span class="o">/</span><span class="n">plain</span> <span class="n">text</span><span class="o">/</span><span class="n">css</span> <span class="n">application</span><span class="o">/</span><span class="n">json</span> <span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">javascript</span> <span class="n">text</span><span class="o">/</span><span class="n">xml</span> <span class="n">application</span><span class="o">/</span><span class="n">xml</span> <span class="n">text</span><span class="o">/</span><span class="n">javascript</span><span class="p">;</span>
+<span class="n">client_max_body_size</span> <span class="mi">20</span><span class="n">M</span><span class="p">;</span>
+<span class="n">client_body_buffer_size</span> <span class="mi">1024</span><span class="n">k</span><span class="p">;</span>
+<span class="n">include</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="o">.</span><span class="n">d</span><span class="o">/*.</span><span class="n">conf</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="server">
+<h3>server<a class="headerlink" href="#server" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>listen 80;
+server_name    localhost;
+access_log  PATH  main;
+
+#跳转https
+listen 80;
+server_name localhost;
+return 301 https://$host$request_uri;
+</pre></div>
+</div>
+<div class="section" id="ssl">
+<h4>ssl模块<a class="headerlink" href="#ssl" title="永久链接至标题">¶</a></h4>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">listen</span>       <span class="mi">443</span> <span class="n">ssl</span> <span class="n">http2</span> <span class="n">default</span><span class="p">;</span>
+<span class="n">server_name</span>  <span class="n">localhost</span><span class="p">;</span>
+<span class="n">add_header</span> <span class="n">Strict</span><span class="o">-</span><span class="n">Transport</span><span class="o">-</span><span class="n">Security</span> <span class="s2">&quot;max-age=31536000; includeSubdomains; preload&quot;</span><span class="p">;</span>
+<span class="n">ssl_certificate</span>  <span class="o">&lt;</span><span class="n">ssl</span><span class="o">.</span><span class="n">crt</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">ssl_certificate_key</span>  <span class="o">&lt;</span><span class="n">ssl</span><span class="o">.</span><span class="n">key</span><span class="o">&gt;</span><span class="p">;</span>
+<span class="n">ssl_protocols</span>  <span class="n">TLSv1</span> <span class="n">TLSv1</span><span class="o">.</span><span class="mi">2</span><span class="p">;</span>
+<span class="n">ssl_ciphers</span> <span class="s1">&#39;AES128+EECDH:AES128+EDH:!aNULL&#39;</span><span class="p">;</span>
+<span class="n">ssl_prefer_server_ciphers</span>   <span class="n">on</span><span class="p">;</span>
+<span class="n">ssl_dhparam</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ssl</span><span class="o">/</span><span class="n">certs</span><span class="o">/</span><span class="n">dhparams</span><span class="o">.</span><span class="n">pem</span><span class="p">;</span>
+<span class="n">ssl_session_cache</span>   <span class="n">shared</span><span class="p">:</span><span class="n">ssl</span><span class="p">:</span><span class="mi">10</span><span class="n">m</span><span class="p">;</span>
+<span class="n">ssl_session_timeout</span>  <span class="mi">10</span><span class="n">m</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="location">
+<h3>location<a class="headerlink" href="#location" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">location</span> <span class="o">/</span> <span class="p">{</span>
+ <span class="n">root</span>   <span class="o">&lt;</span><span class="n">PATH</span><span class="o">&gt;</span><span class="p">;</span>
+ <span class="n">index</span>  <span class="n">index</span><span class="o">.</span><span class="n">html</span> <span class="n">index</span><span class="o">.</span><span class="n">htm</span><span class="p">;</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="crontab.html" class="btn btn-neutral float-right" title="Crontab - 周期性任务" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="sysstat/sar.html" class="btn btn-neutral" title="sar - 收集，报告和保存系统活动信息" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

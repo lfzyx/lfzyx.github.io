@@ -1,0 +1,335 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>sed &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="sort" href="sort.html" />
+    <link rel="prev" title="more" href="more.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Filter - 流过滤器</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="cat.html">cat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cut.html">cut</a></li>
+<li class="toctree-l3"><a class="reference internal" href="head.html">head</a></li>
+<li class="toctree-l3"><a class="reference internal" href="less.html">less</a></li>
+<li class="toctree-l3"><a class="reference internal" href="more.html">more</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">sed</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">语法</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">示例</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sort.html">sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="split.html">split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tail.html">tail</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tr.html">tr</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uniq.html">uniq</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wc.html">wc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Linux</a> &raquo;</li>
+        
+          <li><a href="index.html">Filter - 流过滤器</a> &raquo;</li>
+        
+      <li>sed</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/filters/sed.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="sed">
+<h1>sed<a class="headerlink" href="#sed" title="永久链接至标题">¶</a></h1>
+<p>stream editor，流编辑器。Sed 将来自输入的行加载到模式空间中，
+使用正则表达式语法选择性地搜索和替换模式空间中的文本，然后将模式空间写入到标准输出。</p>
+<div class="section" id="id1">
+<h2>语法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>sed [options] file</p>
+<blockquote>
+<div><table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-i</span></kbd></td>
+<td>将转换结果直接写入源文件中</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-e</span></kbd></td>
+<td>允许一次执行多个匹配命令</td></tr>
+</tbody>
+</table>
+</div></blockquote>
+<ul class="simple">
+<li>s替换命令</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>s/模式/替换文字/       将每行第1个匹配“模式”的字符串转换成“替换文字”</li>
+<li>s/模式/替换文字/2      将每行第2个匹配“模式”的字符串转换成“替换文字”</li>
+<li>s/模式/替换文字/g      将每行所有匹配“模式”的字符串转换成“替换文字”</li>
+<li>s/模式/替换文字/2g     将每行从第2个开始匹配“模式”的字符串转换成“替换文字”</li>
+<li>3s/模式/替换文字/g     将第3行所有匹配“模式”的字符串转换成“替换文字”</li>
+<li>3,6s/模式/替换文字/g   将第3至6行所有匹配“模式”的字符串转换成“替换文字”</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>分号 ; 可以用作分隔命令执行多个匹配命令</li>
+</ul>
+<blockquote>
+<div><ul class="simple">
+<li>1,3s/模式/替换文字/g; 3,$s/模式/替换文字/g  第1行到第3行所有匹配“模式”的字符串转换成“替换文字”，第3行以后所有匹配“模式”的字符串转换成“替换文字”</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>示例<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>sed -i “s/spacename/namespace/” .python_history</li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sort.html" class="btn btn-neutral float-right" title="sort" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="more.html" class="btn btn-neutral" title="more" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script type="text/javascript" src="../../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

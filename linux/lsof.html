@@ -1,0 +1,361 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Lsof - 列出打开的文件 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="PXE - 预启动执行环境" href="pxe.html" />
+    <link rel="prev" title="Keepalived - 高可用解决方案" href="keepalived.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Lsof - 列出打开的文件</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">语法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Lsof - 列出打开的文件</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/lsof.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="lsof">
+<h1>Lsof - 列出打开的文件<a class="headerlink" href="#lsof" title="永久链接至标题">¶</a></h1>
+<p>lsof 是 LiSt Open Files
+的缩写，以列表的形式显示文件被哪个进程打开，文件包括磁盘文件、网络套接字、管道、设备。
+使用这条命令的主要情形之一就是在无法卸载磁盘和显示正在使用或者打开某个文件的错误信息的时候。
+使用这条命令，你可以很容易地看到正在使用哪个文件。 <a class="footnote-reference" href="#id4" id="id1">[1]</a></p>
+<div class="section" id="id2">
+<h2>语法<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>lsof[-?abhlnNoOPRtUvVX] [+|-c c] [+|-d s] [+D D] [+|-f[gG]] [+|-e s] [-F [f]] [-g [s]] [-i [i]]
+[+|-L [l]] [+m [m]] [+|-M] [-o [o]] [-p s] [+|-r [t]] [-s [p:s]] [-S [t]] [-T [t]] [-u s] [+|-w] [-x [fl]] [--] [names]
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>示例<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>列出所有打开的文件</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>lsof
+
+COMMAND    PID      USER   FD (文件描述符)        TYPE（文件类型）     DEVICE  SIZE/OFF       NODE NAME
+init         1      root  cwd (当前工作目录)      DIR （目录）         253,0      4096          2 /
+init         1      root  rtd (root目录)          DIR （目录）         253,0      4096          2 /
+init         1      root  txt (程序代码和数据）   REG （普通文件）     253,0    145180     147164 /sbin/init
+init         1      root  mem (内存映射文件)      REG （普通文件）     253,0   1889704     190149 /lib/libc-2.12.so
+nginx     23780     nginx  0u（读写访问）         CHR （特殊字符文件） 1,3         0t0  188451717 /dev/null
+rsyslogd   3856     root   1r（读访问）           REG （普通文件）     144,8         0 4026545856 /proc/kmsg
+mysqld    32336     mysql  2w（写访问）           FIFO（先入先出）     0,6         0t0  126330358 pipe
+</pre></div>
+</div>
+<p>列出指定进程打开的文件</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lsof</span> <span class="o">-</span><span class="n">p</span> <span class="mi">23780</span>
+
+<span class="n">COMMAND</span>   <span class="n">PID</span>  <span class="n">USER</span>   <span class="n">FD</span>   <span class="n">TYPE</span>             <span class="n">DEVICE</span> <span class="n">SIZE</span><span class="o">/</span><span class="n">OFF</span>      <span class="n">NODE</span> <span class="n">NAME</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>  <span class="n">cwd</span>    <span class="n">DIR</span>              <span class="mi">144</span><span class="p">,</span><span class="mi">7</span>     <span class="mi">4096</span> <span class="mi">188448964</span> <span class="o">/</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>  <span class="n">rtd</span>    <span class="n">DIR</span>              <span class="mi">144</span><span class="p">,</span><span class="mi">7</span>     <span class="mi">4096</span> <span class="mi">188448964</span> <span class="o">/</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>  <span class="n">txt</span>    <span class="n">REG</span>              <span class="mi">144</span><span class="p">,</span><span class="mi">7</span>   <span class="mi">825320</span> <span class="mi">188454748</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">nginx</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>  <span class="n">mem</span>    <span class="n">REG</span>                <span class="mi">8</span><span class="p">,</span><span class="mi">5</span>          <span class="mi">188454748</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">nginx</span> <span class="p">(</span><span class="n">path</span> <span class="n">dev</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>列出指定用户打开的文件</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lsof</span> <span class="o">-</span><span class="n">u</span> <span class="n">nginx</span>
+
+<span class="n">COMMAND</span>   <span class="n">PID</span>  <span class="n">USER</span>   <span class="n">FD</span>   <span class="n">TYPE</span>             <span class="n">DEVICE</span> <span class="n">SIZE</span><span class="o">/</span><span class="n">OFF</span>      <span class="n">NODE</span> <span class="n">NAME</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>  <span class="n">cwd</span>    <span class="n">DIR</span>              <span class="mi">144</span><span class="p">,</span><span class="mi">7</span>     <span class="mi">4096</span> <span class="mi">188448964</span> <span class="o">/</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>  <span class="n">rtd</span>    <span class="n">DIR</span>              <span class="mi">144</span><span class="p">,</span><span class="mi">7</span>     <span class="mi">4096</span> <span class="mi">188448964</span> <span class="o">/</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>  <span class="n">txt</span>    <span class="n">REG</span>              <span class="mi">144</span><span class="p">,</span><span class="mi">7</span>   <span class="mi">825320</span> <span class="mi">188454748</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">nginx</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>  <span class="n">mem</span>    <span class="n">REG</span>                <span class="mi">8</span><span class="p">,</span><span class="mi">5</span>          <span class="mi">188454748</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">sbin</span><span class="o">/</span><span class="n">nginx</span> <span class="p">(</span><span class="n">path</span> <span class="n">dev</span><span class="o">=</span><span class="mi">144</span><span class="p">,</span><span class="mi">7</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>列出所有网络连接</p>
+<p><code class="docutils literal notranslate"><span class="pre">lsof</span> <span class="pre">-i</span></code></p>
+<p>仅列出IPv4网络连接</p>
+<p><code class="docutils literal notranslate"><span class="pre">lsof</span> <span class="pre">-i</span> <span class="pre">4</span></code></p>
+<p>仅列出TCP连接</p>
+<p><code class="docutils literal notranslate"><span class="pre">lsof</span> <span class="pre">-i</span> <span class="pre">TCP</span></code></p>
+<p>列出正在监听的网络连接</p>
+<p><code class="docutils literal notranslate"><span class="pre">lsof</span> <span class="pre">-i</span> <span class="pre">-s</span> <span class="pre">TCP:LISTEN</span></code></p>
+<p>列出已建立的网络连接</p>
+<p><code class="docutils literal notranslate"><span class="pre">lsof</span> <span class="pre">-i</span> <span class="pre">-s</span> <span class="pre">TCP:ESTABLISHED</span></code></p>
+<p>列出运行在指定端口上的进程</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lsof</span> <span class="o">-</span><span class="n">i</span> <span class="n">TCP</span><span class="p">:</span><span class="mi">80</span>
+
+<span class="n">COMMAND</span>   <span class="n">PID</span>  <span class="n">USER</span>   <span class="n">FD</span>   <span class="n">TYPE</span>    <span class="n">DEVICE</span> <span class="n">SIZE</span><span class="o">/</span><span class="n">OFF</span> <span class="n">NODE</span> <span class="n">NAME</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>    <span class="mi">3</span><span class="n">u</span>  <span class="n">IPv4</span> <span class="mi">338498973</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="n">lfzyx</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="n">http</span><span class="o">-&gt;</span><span class="mf">58.137</span><span class="o">.</span><span class="mf">148.210</span><span class="p">:</span><span class="mi">57582</span> <span class="p">(</span><span class="n">ESTABLISHED</span><span class="p">)</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>    <span class="mi">6</span><span class="n">u</span>  <span class="n">IPv4</span>    <span class="mi">250008</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="o">*</span><span class="p">:</span><span class="n">http</span> <span class="p">(</span><span class="n">LISTEN</span><span class="p">)</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>   <span class="mi">19</span><span class="n">u</span>  <span class="n">IPv4</span> <span class="mi">338498376</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="n">lfzyx</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="n">http</span><span class="o">-&gt;</span><span class="mi">150</span><span class="o">-</span><span class="mi">70</span><span class="o">-</span><span class="mi">75</span><span class="o">-</span><span class="mf">34.</span><span class="n">trendmicro</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="mi">54366</span> <span class="p">(</span><span class="n">ESTABLISHED</span><span class="p">)</span>
+<span class="n">nginx</span>   <span class="mi">23780</span> <span class="n">nginx</span>   <span class="mi">22</span><span class="n">u</span>  <span class="n">IPv4</span> <span class="mi">338498234</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="n">lfzyx</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="n">http</span><span class="o">-&gt;</span><span class="n">wf</span><span class="o">-</span><span class="mi">171</span><span class="o">-</span><span class="mi">99</span><span class="o">-</span><span class="mi">47</span><span class="o">-</span><span class="mf">76.</span><span class="n">revip9</span><span class="o">.</span><span class="n">asianet</span><span class="o">.</span><span class="n">co</span><span class="o">.</span><span class="n">th</span><span class="p">:</span><span class="mi">18447</span> <span class="p">(</span><span class="n">ESTABLISHED</span><span class="p">)</span>
+<span class="n">nginx</span>   <span class="mi">32446</span>  <span class="n">root</span>    <span class="mi">6</span><span class="n">u</span>  <span class="n">IPv4</span>    <span class="mi">250008</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="o">*</span><span class="p">:</span><span class="n">http</span> <span class="p">(</span><span class="n">LISTEN</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>列出运行在指定端口范围上的进程</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lsof</span> <span class="o">-</span><span class="n">i</span> <span class="n">TCP</span><span class="p">:</span><span class="mi">1</span><span class="o">-</span><span class="mi">1024</span>
+
+<span class="n">COMMAND</span>   <span class="n">PID</span>   <span class="n">USER</span>   <span class="n">FD</span>   <span class="n">TYPE</span>    <span class="n">DEVICE</span> <span class="n">SIZE</span><span class="o">/</span><span class="n">OFF</span> <span class="n">NODE</span> <span class="n">NAME</span>
+<span class="n">portmap</span>  <span class="mi">3759</span> <span class="n">daemon</span>    <span class="mi">5</span><span class="n">u</span>  <span class="n">IPv4</span>    <span class="mi">249950</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="o">*</span><span class="p">:</span><span class="n">sunrpc</span> <span class="p">(</span><span class="n">LISTEN</span><span class="p">)</span>
+<span class="n">nginx</span>   <span class="mi">23780</span>  <span class="n">nginx</span>    <span class="mi">3</span><span class="n">u</span>  <span class="n">IPv4</span> <span class="mi">338529365</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="n">lfzyx</span><span class="o">.</span><span class="n">org</span><span class="p">:</span><span class="n">http</span><span class="o">-&gt;</span><span class="n">ppp</span><span class="o">-</span><span class="mi">124</span><span class="o">-</span><span class="mi">121</span><span class="o">-</span><span class="mi">2</span><span class="o">-</span><span class="mf">252.</span><span class="n">revip2</span><span class="o">.</span><span class="n">asianet</span><span class="o">.</span><span class="n">co</span><span class="o">.</span><span class="n">th</span><span class="p">:</span><span class="mi">64427</span> <span class="p">(</span><span class="n">ESTABLISHED</span><span class="p">)</span>
+<span class="n">nginx</span>   <span class="mi">23780</span>  <span class="n">nginx</span>    <span class="mi">6</span><span class="n">u</span>  <span class="n">IPv4</span>    <span class="mi">250008</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="o">*</span><span class="p">:</span><span class="n">http</span> <span class="p">(</span><span class="n">LISTEN</span><span class="p">)</span>
+<span class="n">nginx</span>   <span class="mi">32446</span>   <span class="n">root</span>    <span class="mi">6</span><span class="n">u</span>  <span class="n">IPv4</span>    <span class="mi">250008</span>      <span class="mi">0</span><span class="n">t0</span>  <span class="n">TCP</span> <span class="o">*</span><span class="p">:</span><span class="n">http</span> <span class="p">(</span><span class="n">LISTEN</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>列出到指定主机的连接</p>
+<p><code class="docutils literal notranslate"><span class="pre">lsof</span> <span class="pre">-i</span> <span class="pre">&#64;10.10.10.118[:8080]</span></code></p>
+<p>列出除root用户打开的文件</p>
+<p><code class="docutils literal notranslate"><span class="pre">lsof</span> <span class="pre">-u</span> <span class="pre">^root</span></code></p>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.tecmint.com/10-lsof-command-examples-in-linux/">10 lsof Command Examples in Linux</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pxe.html" class="btn btn-neutral float-right" title="PXE - 预启动执行环境" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="keepalived.html" class="btn btn-neutral" title="Keepalived - 高可用解决方案" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

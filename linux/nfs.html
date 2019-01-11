@@ -1,0 +1,382 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NFS - 分布式文件系统 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Openssh - 安全传输协议" href="openssh/index.html" />
+    <link rel="prev" title="OpenLDAP - LDAP 协议的开源实现" href="openldap.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">NFS - 分布式文件系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">服务端配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">命令</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>NFS - 分布式文件系统</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/nfs.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nfs">
+<h1>NFS - 分布式文件系统<a class="headerlink" href="#nfs" title="永久链接至标题">¶</a></h1>
+<p>网络文件系统（英语：Network File
+System，缩写为NFS）是一种分布式文件系统协议，其功能旨在允许客户端主机可以像访问本地存储一样通过网络访问服务器端文件。</p>
+<p>NFS在文件传送或信息传送过程中依赖于RPC协议。RPC，远程过程调用 (Remote
+Procedure Call)
+是能使客户端执行其他系统中程序的一种机制。NFS本身是没有提供信息传输的协议和功能的，但NFS却能让我们通过网络进行资料的分享，这是因为NFS使用了一些其它的传输协议。而这些传输协议用到这个RPC功能的。可以说NFS本身就是使用RPC的一个程序。或者说NFS也是一个RPC
+SERVER。所以只要用到NFS的地方都要启动RPC服务，不论是NFS SERVER或者NFS
+CLIENT。这样SERVER和CLIENT才能通过RPC来实现PROGRAM
+PORT的对应。可以这么理解RPC和NFS的关系：NFS是一个文件系统，而RPC是负责负责信息的传输。</p>
+<div class="section" id="id1">
+<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>服务端</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;nfs-kernel-server&nbsp;nfs-common</span></code></p>
+<ul class="simple">
+<li>客户端</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;nfs-common</span></code></p>
+</div>
+<div class="section" id="id2">
+<h2>使用<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id3">
+<h3>服务端配置<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h3>
+<p>配置文件: /etc/exports <a class="footnote-reference" href="#id7" id="id4">[1]</a></p>
+<p>格式: [共享的目录] [客户端(参数1,参数2)]</p>
+<p>客户端是指网络中可以访问这个NFS输出目录的计算机，客户端常用的指定方式：</p>
+<ul class="simple">
+<li>指定ip地址的主机：192.168.0.200</li>
+<li>指定子网中的所有主机：192.168.0.0/24 192.168.0.0/255.255.255.0</li>
+<li>所有主机：*</li>
+</ul>
+<p>参数选项用来设置输出目录的访问权限、用户映射等。</p>
+<p>访问权限选项:</p>
+<ul class="simple">
+<li>设置输出目录只读：ro</li>
+<li>设置输出目录读写：rw</li>
+</ul>
+<p>用户映射选项:</p>
+<ul class="simple">
+<li>all_squash：不管使用NFS的用户是谁，他的身份都会被限定成为一个指定的普通用户身份；</li>
+<li>no_all_squash：与all_squash取反（默认设置）；</li>
+<li>root_squash：root用户对共享目录的权限不高，只有普通用户的权限，即限制了root（默认设置）；</li>
+<li>no_root_squash：root用户对共享的目录拥有至高的权限控制，就像是对本机的目录操作一样。</li>
+<li>anonuid/anongid：要和root_squash 以及
+all_squash一同使用，用于指定使用NFS的用户限定后的uid和gid</li>
+</ul>
+<p>其它选项:</p>
+<ul class="simple">
+<li>secure：限制客户端只能从小于1024的tcp/ip端口连接nfs服务器（默认设置）；</li>
+<li>insecure：允许客户端从大于1024的tcp/ip端口连接服务器；</li>
+<li>sync：将数据同步写入内存缓冲区与磁盘中，效率低，但可以保证数据的一致性；</li>
+<li>async：将数据先保存在内存缓冲区中，必要时才写入磁盘(建议设置)；</li>
+<li>wdelay：检查是否有相关的写操作，如果有则将这些写操作一起执行，这样可以提高效率（默认设置）；</li>
+<li>no_wdelay：若有写操作则立即执行，应与sync配合使用；</li>
+<li>subtree：若输出目录是一个子目录，则nfs服务器将检查其父目录的权限；</li>
+<li>no_subtree：即使输出目录是一个子目录，nfs服务器也不检查其父目录的权限，这样可以提高效率(默认设置)；</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3>命令<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>showmount -e [ipaddress] ： 在客户端上查看服务端的资源共享情况</p>
+<p>exportfs -auv ：卸载所有共享目录</p>
+<p>exportfs -arv ：重新共享所有目录</p>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>示例<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<p>假设一个Unix风格的场景，其中一台计算机（客户端）需要访问存储在其他机器上的数据（NFS
+服务器）：</p>
+<ol class="arabic simple">
+<li>服务端实现 NFS 守护进程, 默认运行 nfsd, 用来使得数据可以被客户端访问</li>
+</ol>
+<p>2. 服务端系统管理员可以决定哪些资源可以被访问, 导出目录的名字和参数,
+通常使用 /etc/exports 配置文件 和 exportfs 命令。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">client1</span>           <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.101</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="k">async</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">)</span>
+<span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span>                <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.101</span><span class="p">(</span><span class="n">rw</span><span class="p">,</span><span class="k">async</span><span class="p">,</span><span class="n">fsid</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">crossmnt</span><span class="p">,</span><span class="n">no_subtree_check</span><span class="p">,</span><span class="n">no_root_squash</span><span class="p">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>服务端 安全-管理员 保证它可以组织和认证合法的客户端.</li>
+<li>服务端网络配置保证可以跟客户端透过 防火墙 进行协商.</li>
+</ol>
+<p>5. 客户端请求导出的数据, 通常调用一个 mount 命令. (The client asks the
+server (rpcbind) which port the NFS server is using, the client connects
+to the NFS server (nfsd), nfsd passes the request to mountd)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mount</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.100</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">client1</span> <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">nfs</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">client1</span>
+<span class="n">mount</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.100</span><span class="p">:</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span>
+</pre></div>
+</div>
+<p>6. 如果一切顺利,
+客户端的用户就可以通过已经挂载的文件系统查看和访问服务端的文件了.</p>
+<p>7.启动时挂载NFS</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">fstab</span>
+<span class="mf">192.168</span><span class="o">.</span><span class="mf">0.100</span><span class="p">:</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">client1</span>  <span class="o">/</span><span class="n">mnt</span><span class="o">/</span><span class="n">nfs</span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">client1</span>  <span class="n">nfs4</span>   <span class="n">rsize</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span><span class="n">wsize</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span><span class="n">timeo</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">bg</span><span class="p">,</span><span class="n">_netdev</span> <span class="mi">0</span> <span class="mi">0</span>
+<span class="mf">192.168</span><span class="o">.</span><span class="mf">0.100</span><span class="p">:</span><span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span>  <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span>   <span class="n">nfs4</span>   <span class="n">rsize</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span><span class="n">wsize</span><span class="o">=</span><span class="mi">8192</span><span class="p">,</span><span class="n">timeo</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span><span class="n">bg</span><span class="p">,</span><span class="n">_netdev</span> <span class="mi">0</span> <span class="mi">0</span>
+</pre></div>
+</div>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[1]</a></td><td><a class="reference external" href="http://www.cnblogs.com/mchina/archive/2013/01/03/2840040.html">Linux NFS服务器的安装与配置</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="openssh/index.html" class="btn btn-neutral float-right" title="Openssh - 安全传输协议" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="openldap.html" class="btn btn-neutral" title="OpenLDAP - LDAP 协议的开源实现" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

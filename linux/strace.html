@@ -1,0 +1,370 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>安装 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>安装</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/strace.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p><a class="reference external" href="http://sourceforge.net/projects/strace/">strace</a>是<a class="reference external" href="Linux">Linux环境下的一款程序调试工具</a>，用来跟踪进程执行时的系统调用和所接收的信号。</p>
+<div class="section" id="id1">
+<h1>安装<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id2">
+<h2>编译<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">`wget</span></code> &lt;wget&gt;`__``&nbsp;<code class="docutils literal notranslate"><span class="pre">\</span> <span class="pre">```http://ncu.dl.sourceforge.net/project/strace/strace/4.8/strace-4.8.tar.xz</span></code> &lt;<a class="reference external" href="http://ncu.dl.sourceforge.net/project/strace/strace/4.8/strace-4.8.tar.xz">http://ncu.dl.sourceforge.net/project/strace/strace/4.8/strace-4.8.tar.xz</a>&gt;`__ <a class="footnote-reference" href="#id13" id="id3">[1]</a></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">`tar</span></code> &lt;tar&gt;`__``&nbsp;xvf&nbsp;strace-4.8.tar.xz``</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">`cd</span></code> &lt;cd&gt;`__``&nbsp;strace-4.8``</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">./configure</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">make</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">make&nbsp;install</span></code></div>
+</div>
+</div>
+<div class="section" id="apt">
+<h2>apt<a class="headerlink" href="#apt" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">`apt-get</span></code> &lt;apt-get&gt;`__``&nbsp;install&nbsp;strace``</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h1>参数<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h1>
+<p>-a column 设置返回值的输出位置.默认 为40.</p>
+<p>-e expr 指定一个表达式,用来控制如何跟踪.格式如下:</p>
+<p>[qualifier=][!]value1[,value2]… qualifier只能是
+trace,abbrev,verbose,raw,signal,read,write其中之一.value是用来限定的符号或数字.默认的
+qualifier是 trace.感叹号是否定符号.例如:</p>
+<p>-eopen等价于 -e
+trace=open,表示只跟踪open调用.而-etrace!=open表示跟踪除了open以外的其他调用.有两个特殊的符号
+all 和 none. 注意有些shell使用!来执行历史记录里的命令,所以要使用.</p>
+<p>-e trace=set 只跟踪指定的系统 调用.例如:-e
+trace=open,close,rean,write表示只跟踪这四个系统调用.默认的为set=all.</p>
+<p>-e trace=file 只跟踪有关文件操作的系统调用.</p>
+<p>-e trace=process 只跟踪有关进程控制的系统调用.</p>
+<p>-e trace=network 跟踪与网络有关的所有系统调用.</p>
+<p>-e strace=signal 跟踪所有与系统信号有关的 系统调用</p>
+<p>-e trace=ipc 跟踪所有与进程通讯有关的系统调用</p>
+<p>-e abbrev=set 设定 strace输出的系统调用的结果集.-v 等与
+abbrev=none.默认为abbrev=all.</p>
+<p>-e raw=set 将指 定的系统调用的参数以十六进制显示.</p>
+<p>-e signal=set 指定跟踪的系统信号.默认为all.如
+signal=!SIGIO(或者signal=!io),表示不跟踪SIGIO信号.</p>
+<p>-e read=set 输出从指定文件中读出 的数据.例如: -e read=3,5</p>
+<p>-e write=set 输出写入到指定文件中的数据.</p>
+<p>-o filename 将strace的输出写入文件filename</p>
+<p>-p pid 跟踪指定的进程pid.</p>
+<p>-s strsize 指定输出的字符串的最大长度.默认为32.文件名一直全部输出.</p>
+<p>-u username 以username 的UID和GID执行被跟踪的命令</p>
+<p>-c 统计每一系统调用的所执行的时间,次数和出错的次数等.</p>
+<p>-d 输出strace关于标准错误的调试信息.</p>
+<p>-f 跟踪由fork调用所产生的子进程.</p>
+<p>-ff 如果提供-o
+filename,则所有进程的跟踪结果输出到相应的filename.pid中,pid是各进程的进程号.</p>
+<p>-F 尝试跟踪vfork调用.在-f时,vfork不被跟踪.</p>
+<p>-h 输出简要的帮助信息.</p>
+<p>-i 输出系统调用的入口指针.</p>
+<p>-q 禁止输出关于脱离的消息.</p>
+<p>-r 打印出相对时间关于,,每一个系统调用.</p>
+<p>-t 在输出中的每一行前加上时间信息.</p>
+<p>-tt 在输出中的每一行前加上时间信息,微秒级.</p>
+<p>-ttt 微秒级输出,以秒了表示时间.</p>
+<p>-T 显示每一调用所耗的时间.</p>
+<p>-v
+输出所有的系统调用.一些调用关于环境变量,状态,输入输出等调用由于使用频繁,默认不输出.</p>
+<p>-V 输出strace的版本信息.</p>
+<p>-x 以十六进制形式输出非标准字符串</p>
+<p>-xx 所有字符串以十六进制形式输出.</p>
+</div>
+<div class="section" id="id5">
+<h1>示例<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h1>
+<div class="line-block">
+<div class="line"><a href="#id6"><span class="problematic" id="id7">``</span></a>strace&nbsp;cat&nbsp;/dev/null&nbsp;``</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">execve(&quot;/bin/cat&quot;,&nbsp;[&quot;cat&quot;,&nbsp;&quot;/dev/null&quot;],&nbsp;[/*&nbsp;15&nbsp;vars&nbsp;*/])&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">brk(0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0x8b6b000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">access(&quot;/etc/ld.so.nohwcap&quot;,&nbsp;F_OK)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;-1&nbsp;ENOENT&nbsp;(No&nbsp;such&nbsp;file&nbsp;or&nbsp;directory)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mmap2(NULL,&nbsp;8192,&nbsp;PROT_READ|PROT_WRITE,&nbsp;MAP_PRIVATE|MAP_ANONYMOUS,&nbsp;-1,&nbsp;0)&nbsp;=&nbsp;0xb7741000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">access(&quot;/etc/ld.so.preload&quot;,&nbsp;R_OK)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;-1&nbsp;ENOENT&nbsp;(No&nbsp;such&nbsp;file&nbsp;or&nbsp;directory)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">open(&quot;/etc/ld.so.cache&quot;,&nbsp;O_RDONLY)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">fstat64(3,&nbsp;{st_mode=S_IFREG|0644,&nbsp;st_size=16285,&nbsp;...})&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mmap2(NULL,&nbsp;16285,&nbsp;PROT_READ,&nbsp;MAP_PRIVATE,&nbsp;3,&nbsp;0)&nbsp;=&nbsp;0xb773d000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">close(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">access(&quot;/etc/ld.so.nohwcap&quot;,&nbsp;F_OK)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;-1&nbsp;ENOENT&nbsp;(No&nbsp;such&nbsp;file&nbsp;or&nbsp;directory)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">open(&quot;/lib/i386-linux-gnu/libc.so.6&quot;,&nbsp;O_RDONLY)&nbsp;=&nbsp;3</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">read(3,&nbsp;&quot;\177ELF\1\1\1\0\0\0\0\0\0\0\0\0\3\0\3\0\1\0\0\0po\1\0004\0\0\0&quot;...,&nbsp;512)&nbsp;=&nbsp;512</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">fstat64(3,&nbsp;{st_mode=S_IFREG|0755,&nbsp;st_size=1351816,&nbsp;...})&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mmap2(NULL,&nbsp;1366328,&nbsp;PROT_READ|PROT_EXEC,&nbsp;MAP_PRIVATE|MAP_DENYWRITE,&nbsp;3,&nbsp;0)&nbsp;=&nbsp;0xb75ef000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mprotect(0xb7736000,&nbsp;4096,&nbsp;PROT_NONE)&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mmap2(0xb7737000,&nbsp;12288,&nbsp;PROT_READ|PROT_WRITE,&nbsp;MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE,&nbsp;3,&nbsp;0x147)&nbsp;=&nbsp;&nbsp;0xb7737000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mmap2(0xb773a000,&nbsp;10552,&nbsp;PROT_READ|PROT_WRITE,&nbsp;MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS,&nbsp;-1,&nbsp;0)&nbsp;=&nbsp;0xb773a000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">close(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mmap2(NULL,&nbsp;4096,&nbsp;PROT_READ|PROT_WRITE,&nbsp;MAP_PRIVATE|MAP_ANONYMOUS,&nbsp;-1,&nbsp;0)&nbsp;=&nbsp;0xb75ee000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">set_thread_area({entry_number:-1&nbsp;-&gt;&nbsp;6,&nbsp;base_addr:0xb75ee8d0,&nbsp;limit:1048575,&nbsp;seg_32bit:1,&nbsp;contents:0,&nbsp;&nbsp;&nbsp;read_exec_only:0,&nbsp;limit_in_pages:1,&nbsp;seg_not_present:0,&nbsp;useable:1})&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mprotect(0xb7737000,&nbsp;8192,&nbsp;PROT_READ)&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mprotect(0x8054000,&nbsp;4096,&nbsp;PROT_READ)&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mprotect(0xb7760000,&nbsp;4096,&nbsp;PROT_READ)&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">munmap(0xb773d000,&nbsp;16285)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">brk(0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0x8b6b000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">brk(0x8b8c000)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0x8b8c000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">open(&quot;/usr/lib/locale/locale-archive&quot;,&nbsp;O_RDONLY|O_LARGEFILE)&nbsp;=&nbsp;3</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">fstat64(3,&nbsp;{st_mode=S_IFREG|0644,&nbsp;st_size=1747344,&nbsp;...})&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mmap2(NULL,&nbsp;1747344,&nbsp;PROT_READ,&nbsp;MAP_PRIVATE,&nbsp;3,&nbsp;0)&nbsp;=&nbsp;0xb7443000</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">close(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">fstat64(1,&nbsp;{st_mode=S_IFCHR|0600,&nbsp;st_rdev=makedev(136,&nbsp;1),&nbsp;...})&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">open(&quot;/dev/null&quot;,&nbsp;O_RDONLY|O_LARGEFILE)&nbsp;=&nbsp;3</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">fstat64(3,&nbsp;{st_mode=S_IFCHR|0666,&nbsp;st_rdev=makedev(1,&nbsp;3),&nbsp;...})&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">fadvise64_64(3,&nbsp;0,&nbsp;0,&nbsp;POSIX_FADV_SEQUENTIAL)&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">read(3,&nbsp;&quot;&quot;,&nbsp;32768)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">close(3)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">close(1)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">close(2)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0</span></code></div>
+<div class="line"><a href="#id8"><span class="problematic" id="id9">``</span></a>exit_group(0)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;?&nbsp;``</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">exit_group(0)&nbsp;=&nbsp;?</span></code></div>
+</div>
+<p>每一行都是一条系统调用，等号左边是系统调用的函数名及其参数，右边是该调用的返回值。
+strace 显示这些调用的参数并返回符号形式的值。strace
+从内核接收信息，而且不需要以任何特殊的方式来构建内核。 <a class="footnote-reference" href="#id16" id="id10">[2]</a></p>
+<hr class="docutils" />
+<p><code class="docutils literal notranslate"><span class="pre">strace&nbsp;-o&nbsp;output.txt&nbsp;-T&nbsp;-tt&nbsp;-e&nbsp;trace=all&nbsp;-p&nbsp;2375</span></code></p>
+<p>跟踪2375进程的所有系统调用（-e
+trace=all），并统计系统调用的花费时间，以及开始时间（并以可视化的时分秒格式显示），最后将记录结果存在output.txt文件里面。 <a class="footnote-reference" href="#id17" id="id11">[3]</a></p>
+</div>
+<hr class="docutils" />
+<div class="section" id="id12">
+<h1>参考文献<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h1>
+<references/><table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><code class="docutils literal notranslate"><span class="pre">`Download</span></code><a href="#id14"><span class="problematic" id="id15">``</span></a><code class="docutils literal notranslate"><span class="pre">\</span> <span class="pre">``strace</span></code> &lt;<a class="reference external" href="http://sourceforge.net/projects/strace/files/strace/">http://sourceforge.net/projects/strace/files/strace/</a>&gt;`__</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id16" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id10">[2]</a></td><td><a class="reference external" href="http://www.cnblogs.com/ggjucheng/archive/2012/01/08/2316692.html">Linux
+strace命令</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id17" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id11">[3]</a></td><td><a class="reference external" href="http://www.dbabeta.com/2009/strace.html">Linux中的strace</a></td></tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

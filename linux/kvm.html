@@ -1,0 +1,390 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>KVM - 虚拟化解决方案 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Systemd - 系统启动管理" href="systemd.html" />
+    <link rel="prev" title="Linux" href="index.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">KVM - 虚拟化解决方案</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">简介</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id6">设置桥接网络</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">创建新的主机</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">启动与停止</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>KVM - 虚拟化解决方案</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/kvm.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kvm">
+<span id="index-0"></span><h1>KVM - 虚拟化解决方案<a class="headerlink" href="#kvm" title="永久链接至标题">¶</a></h1>
+<div class="section" id="id1">
+<h2>简介<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>KVM（Kernel-based Virtual Machine 基于内核的虚拟机) 是具备Intel VT或
+AMD-V功能的 x86
+平台全虚拟化解决方案，它包含一个为处理器提供底层虚拟化可加载的核心模块kvm.ko
+(kvm-intel.ko或kvm-AMD.ko)。仅有KVM模块是远远不够的，
+KVM内核模块本身只能提供CPU和内存的虚拟化，用户无法直接控制内核模块去作事情，KVM还需要一个经过修改的 <a class="reference internal" href="qemu.html"><span class="doc">Qemu</span></a>
+软件作为虚拟机上层控制，才能构成一个完成的虚拟化技术。 <a class="reference internal" href="qemu.html"><span class="doc">Qemu</span></a>
+也是一个虚拟化软件。它的特点是可虚拟不同的CPU。比如说在x86的CPU上可虚拟一个Power的CPU，并可利用它编译出可运行在Power上的程序。</p>
+</div>
+<div class="section" id="id2">
+<h2>安装<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;qemu-kvm&nbsp;libvirt-bin</span></code>  <a class="footnote-reference" href="#id11" id="id3">[1]</a></p>
+<p>KVM 使用了 QEMU 的基于 x86 的部分，并稍加改造，形成可控制 KVM
+内核模块的用户空间工具 QEMU-KVM。 <a class="footnote-reference" href="#id12" id="id4">[2]</a> QEMU-KVM
+通过ioctl调用/dev/kvm接口，将有关CPU指令的部分交由内核模块来做。KVM
+实现了cpu和内存的虚拟化，qemu模拟IO设备。</p>
+<p>QEMU-KVM 工具效率不高，不易于使用，RedHat 为 KVM
+开发了更多的辅助工具，比如 <a class="reference internal" href="libvirt.html"><span class="doc">libvirt</span></a></p>
+<p><a class="reference internal" href="libvirt.html"><span class="doc">libvirt</span></a> 是一套提供了多种语言接口的 API，为各种虚拟化工具提供一套方便、可靠的编程接口，不仅支持 KVM，而且支持 Xen
+等其他虚拟机，而且一些常用的虚拟机管理工具（如 <a class="reference internal" href="virsh.html"><span class="doc">virsh</span></a> 、 <a class="reference internal" href="virt-install.html"><span class="doc">Virt-install</span></a> 、virt-manager等）和云计算框架平台（如OpenStack、OpenNebula、Eucalyptus等）都在底层使用libvirt的应用程序接口。</p>
+<p>为了方便管理虚拟机，应该把当前的操作用户加入 kvm 与 libvirt
+组。这样就可以使用 virsh 命令了。</p>
+</div>
+<div class="section" id="id5">
+<h2>使用<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id6">
+<h3>设置桥接网络<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>默认情况下，<a class="reference internal" href="qemu.html"><span class="doc">Qemu</span></a> 会给 客户机提供 NAT
+网络，这种情况下主机和客户机访问不到对方。为了给客户机提供完整的网络访问权限，应该创建网桥。 <a class="footnote-reference" href="#id13" id="id7">[3]</a></p>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;bridge-utils</span></code></p>
+<p>修改 /etc/network/interfaces文件，让网桥br0代理eth0。配置完成后，在客户机中使用网桥接口。</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># The loopback network interface</span>
+<span class="n">auto</span> <span class="n">lo</span>
+<span class="n">iface</span> <span class="n">lo</span> <span class="n">inet</span> <span class="n">loopback</span>
+<span class="c1"># The primary network interface</span>
+<span class="n">auto</span> <span class="n">br0</span>
+<span class="n">iface</span> <span class="n">br0</span> <span class="n">inet</span> <span class="n">static</span>
+  <span class="n">address</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.70</span>
+  <span class="n">netmask</span> <span class="mf">255.255</span><span class="o">.</span><span class="mf">255.0</span>
+  <span class="n">gateway</span> <span class="mf">10.10</span><span class="o">.</span><span class="mf">10.10</span>
+  <span class="n">bridge_ports</span> <span class="n">eth0</span>
+  <span class="n">bridge_stp</span> <span class="n">off</span>
+  <span class="n">bridge_fd</span> <span class="mi">0</span>
+  <span class="n">bridge_maxwait</span> <span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id8">
+<h3>创建新的主机<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>virtinst 提供命令行 <a class="reference internal" href="virt-install.html"><span class="doc">Virt-install</span></a> 来创建虚拟机。</p>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;virtinst</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">virt</span><span class="o">-</span><span class="n">install</span>
+  <span class="o">--</span><span class="n">connect</span> <span class="n">qemu</span><span class="p">:</span><span class="o">///</span><span class="n">system</span> \
+  <span class="o">--</span><span class="n">virt</span><span class="o">-</span><span class="nb">type</span> <span class="n">kvm</span> \
+  <span class="o">--</span><span class="n">name</span> <span class="n">demo</span> \
+  <span class="o">--</span><span class="n">memory</span> <span class="mi">500</span> \
+  <span class="o">--</span><span class="n">disk</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span> \
+  <span class="o">--</span><span class="n">cdrom</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">libvirt</span><span class="o">/</span><span class="n">boot</span><span class="o">/</span><span class="n">debian</span><span class="o">-</span><span class="mf">8.5</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">amd64</span><span class="o">-</span><span class="n">netinst</span><span class="o">.</span><span class="n">iso</span> \
+  <span class="o">--</span><span class="n">os</span><span class="o">-</span><span class="n">variant</span> <span class="n">debianwheezy</span> \
+  <span class="o">--</span><span class="n">network</span> <span class="n">bridge</span><span class="o">=</span><span class="n">br0</span> \
+  <span class="o">--</span><span class="n">noautoconsole</span> \
+  <span class="o">--</span><span class="n">graphics</span> <span class="n">vnc</span><span class="p">,</span><span class="n">password</span><span class="o">=</span><span class="n">XYZ12345</span><span class="p">,</span><span class="n">listen</span><span class="o">=</span><span class="mf">0.0</span><span class="o">.</span><span class="mf">0.0</span>
+</pre></div>
+</div>
+<p>创建成功后使用 <a class="reference internal" href="virsh.html"><span class="doc">virsh</span></a> -c qemu:///system list –all
+查看虚拟机状态，running 状态表示创建启动成功，使用 VNC
+客户端连接服务器即可完成安装。</p>
+<p>如果需要预置自动安装请参考 preseed <a class="footnote-reference" href="#id14" id="id9">[4]</a> .</p>
+</div>
+<div class="section" id="id10">
+<h3>启动与停止<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p>在登录常规用户的情况下 <a class="reference internal" href="libvirt.html"><span class="doc">libvirt</span></a> 默认情况会使用
+qemu:///session 域，添加 -c qemu:///system 选项可使用 qemu:///system
+域。</p>
+<p>查看客户机列表</p>
+<p><code class="docutils literal notranslate"><span class="pre">virsh&nbsp;-c&nbsp;qemu:///system&nbsp;list&nbsp;--all</span></code></p>
+<p>停止一个客户机</p>
+<p><code class="docutils literal notranslate"><span class="pre">virsh&nbsp;-c&nbsp;qemu:///system&nbsp;shutdown&nbsp;demo</span></code></p>
+<p>如果停止失败，可以强制停止</p>
+<p><code class="docutils literal notranslate"><span class="pre">virsh&nbsp;-c&nbsp;qemu:///system&nbsp;destroy&nbsp;demo</span></code></p>
+<p>启动客户机</p>
+<p><code class="docutils literal notranslate"><span class="pre">virsh&nbsp;-c&nbsp;qemu:///system&nbsp;start&nbsp;demo</span></code></p>
+<p>设置虚拟机开机启动</p>
+<p><code class="docutils literal notranslate"><span class="pre">virsh</span> <span class="pre">autostart&nbsp;alice</span></code></p>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td><a class="reference external" href="https://wiki.debian.org/KVM#Installation">KVM-Debian Wiki</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id4">[2]</a></td><td><a class="reference external" href="http://blog.chinaunix.net/uid-23769728-id-3256677.html">虚拟化之QEMU与KVM</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id13" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id7">[3]</a></td><td><a class="reference external" href="https://wiki.debian.org/BridgeNetworkConnections">BridgeNetworkConnections</a></td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id14" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id9">[4]</a></td><td><a class="reference external" href="https://www.debian.org/releases/stable/amd64/apb.html.zh-cn">preseed</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="systemd.html" class="btn btn-neutral float-right" title="Systemd - 系统启动管理" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Linux" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

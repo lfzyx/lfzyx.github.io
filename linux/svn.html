@@ -1,0 +1,432 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>SVN - 上一代版本控制系统 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Tomcat - java 容器" href="tomcat.html" />
+    <link rel="prev" title="Rsync - 文件同步" href="rsync.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SVN - 上一代版本控制系统</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">单库与多库</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">配置单库SVN</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">建立SVN版本库目录</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">修改主配置</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">配置允许访问的svn用户</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">配置svn用户访问权限</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id10">启动单库svn</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id11">配置多库svn</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id12">配置多库svn用户访问权限</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id15">启动多库svn</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id16">备份还原</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id17">备份</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id18">还原</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id19">镜像</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>SVN - 上一代版本控制系统</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/svn.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="svn">
+<h1>SVN - 上一代版本控制系统<a class="headerlink" href="#svn" title="永久链接至标题">¶</a></h1>
+<p>Apache
+Subversion（简称SVN，svn），是一个开放源代码的版本控制系统，相对于的RCS、CVS，采用了分支管理系统，
+它的设计目标就是取代CVS。互联网上越来越多的控制服务从CVS转移到Subversion。</p>
+<div class="section" id="id1">
+<h2>单库与多库<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>如果项目是相关的，并且有可能要共享数据，那么建议使用单库svn，代码可以很容易的在两个项目之间拷贝和移动，并且操作的历史记录会被保存下来。 <a class="footnote-reference" href="#id20" id="id2">[1]</a></p>
+<p>如果工程是完全不相关的，并且他们之间不可能共享数据，这样最好创建几个独立的完全不相关的版本库，利于安全管理。</p>
+</div>
+<div class="section" id="id3">
+<h2>配置单库SVN<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3>建立SVN版本库目录<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p>建立目录：mkdir -p ../repository</p>
+<p>建立svn版本库：svnadmin create ../repository</p>
+<p>在../repository下就可以看到conf, db,format,hooks, locks,
+README.txt等文件，说明一个SVN库已经建立。</p>
+</div>
+<div class="section" id="id5">
+<h3>修改主配置<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p>vi ../repository/conf/svnserve.conf</p>
+<p>内容修改为:</p>
+<p>[general]</p>
+<p>anon-access = none</p>
+<p>auth-access = write</p>
+</div>
+<div class="section" id="id6">
+<h3>配置允许访问的svn用户<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p>vi ../repository/conf/pwd</p>
+<p>文件格式如下：</p>
+<p>[users]</p>
+<blockquote>
+<div><p>=</p>
+<p>=</p>
+</div></blockquote>
+<p>其中，[users]是必须的。下面列出要访问svn的用户，每个用户一行。</p>
+<p>示例：</p>
+<p>[users]</p>
+<p>alan = password</p>
+<p>king = hello</p>
+</div>
+<div class="section" id="id7">
+<h3>配置svn用户访问权限<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>vi ../repository/conf/authz</p>
+<p>用户组：</p>
+<p>[groups]</p>
+<p>用户组a = 用户1,用户2 用户组b = 用户3,用户4</p>
+<p>版本库目录：</p>
+<p>[/目录]</p>
+<p>&#64;用户组 = 权限</p>
+<p>用户 = 权限</p>
+<p>用户组在前面加&#64;，<a href="#id8"><span class="problematic" id="id9">*</span></a>表示全部用户。</p>
+<p>权限可以是w、r、wr和空，空表示没有任何权限。</p>
+<p>示例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">groups</span><span class="p">]</span>
+<span class="n">harry_and_sally</span> <span class="o">=</span> <span class="n">harry</span><span class="p">,</span><span class="n">sally</span>
+<span class="n">harry_sally_and_joe</span> <span class="o">=</span> <span class="n">harry</span><span class="p">,</span><span class="n">sally</span><span class="p">,</span><span class="o">&amp;</span><span class="n">joe</span>
+<span class="p">[</span><span class="o">/</span><span class="p">]</span> <span class="c1">#表示版本库根目录</span>
+<span class="n">harry</span> <span class="o">=</span> <span class="n">rw</span>
+<span class="p">[</span><span class="o">/</span><span class="n">目录</span><span class="p">]</span> <span class="c1">#表示版本库根目录下的目录</span>
+<span class="nd">@harry_and_sally</span> <span class="o">=</span> <span class="n">rw</span>
+</pre></div>
+</div>
+<p><em>注意：对用户配置文件的修改立即生效，不必重启svn。权限配置文件中出现的用户名必须已在用户配置文件中定义。对权限配置文件的修改立即生效，不必重启svn</em></p>
+</div>
+<div class="section" id="id10">
+<h3>启动单库svn<a class="headerlink" href="#id10" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">svnserve&nbsp;-d&nbsp;-r&nbsp;../repository</span></code></p>
+<p>-d表示以daemon方式（后台运行）运行，启动路径指向版本库所在的路径，这样在SVN客户端直接访问svn://ip地址 即可。</p>
+</div>
+</div>
+<div class="section" id="id11">
+<h2>配置多库svn<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h2>
+<p>与单库svn不同的是多库svn需要建立多个版本库，各个版本库的配置文件需要单独修改。大部分配置方式和单库svn相同，这里不再复述，需要注意的是配置svn用户访问权限和启动方式。</p>
+<div class="section" id="id12">
+<h3>配置多库svn用户访问权限<a class="headerlink" href="#id12" title="永久链接至标题">¶</a></h3>
+<p>vi ../repository*/conf/authz <em>#每个版本库都需要单独配置</em></p>
+<p>用户组：</p>
+<p>[groups]</p>
+<p>用户组a = 用户1,用户2</p>
+<p>用户组b = 用户3,用户4</p>
+<p>版本库目录：</p>
+<p>[版本库:/目录]</p>
+<p>&#64;用户组 = 权限</p>
+<p>用户 = 权限</p>
+<p>用户组在前面加&#64;，<a href="#id13"><span class="problematic" id="id14">*</span></a>表示全部用户。</p>
+<p>权限可以是w、r、wr和空，空表示没有任何权限。</p>
+<p>示例：</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">groups</span><span class="p">]</span>
+<span class="n">harry_and_sally</span> <span class="o">=</span> <span class="n">harry</span><span class="p">,</span><span class="n">sally</span>
+<span class="n">harry_sally_and_joe</span> <span class="o">=</span> <span class="n">harry</span><span class="p">,</span><span class="n">sally</span><span class="p">,</span><span class="o">&amp;</span><span class="n">joe</span>
+<span class="p">[</span><span class="n">repository</span><span class="o">*</span><span class="p">:</span><span class="o">/</span><span class="p">]</span> <span class="c1">#表示版本库根目录</span>
+<span class="n">harry</span> <span class="o">=</span> <span class="n">rw</span>
+<span class="p">[</span><span class="n">repository</span><span class="o">*</span><span class="p">:</span><span class="o">/</span><span class="n">目录</span><span class="p">]</span> <span class="c1">#表示版本库根目录下的目录</span>
+<span class="nd">@harry_and_sally</span> <span class="o">=</span> <span class="n">rw</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id15">
+<h3>启动多库svn<a class="headerlink" href="#id15" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">svnserve&nbsp;-d&nbsp;-r&nbsp;../</span></code></p>
+<p>-d表示以daemon方式（后台运行）运行，启动路径不要指向版本库，而是指向所有版本库的上一层级，
+需要在SVN客户端访问svn://ip地址/版本库 ，才能访问到指定的版本库</p>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>备份还原<a class="headerlink" href="#id16" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id17">
+<h3>备份<a class="headerlink" href="#id17" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">svnadmin</span> <span class="pre">dump</span> <span class="pre">../repository</span> <span class="pre">&gt;</span> <span class="pre">*.dump</span></code></p>
+<p>或</p>
+<p><code class="docutils literal notranslate"><span class="pre">svnadmin</span> <span class="pre">hotcopy</span> <span class="pre">../repository</span> <span class="pre">&gt;</span> <span class="pre">PATH</span></code></p>
+</div>
+<div class="section" id="id18">
+<h3>还原<a class="headerlink" href="#id18" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">svnadmin</span> <span class="pre">load</span> <span class="pre">../repository</span> <span class="pre">&lt;</span> <span class="pre">*.dump</span></code></p>
+</div>
+</div>
+<div class="section" id="id19">
+<h2>镜像<a class="headerlink" href="#id19" title="永久链接至标题">¶</a></h2>
+<p>svn不支持分布式开发，所以把svn版本库保存在一台服务器上是不安全的</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># 创建版本库</span>
+<span class="n">svnadmin</span> <span class="n">create</span> <span class="n">PATH</span>
+<span class="c1"># 创建钩子</span>
+<span class="n">cp</span> <span class="n">PATH</span><span class="o">/</span><span class="n">hooks</span><span class="o">/</span><span class="n">pre</span><span class="o">-</span><span class="n">revprop</span><span class="o">-</span><span class="n">change</span><span class="o">.</span><span class="n">tmpl</span> <span class="n">PATH</span><span class="o">/</span><span class="n">hooks</span><span class="o">/</span><span class="n">pre</span><span class="o">-</span><span class="n">revprop</span><span class="o">-</span><span class="n">change</span>
+<span class="c1"># 编辑pre-revprop-change钩子，将最后一行的 `exit 1` 改为 `exit 0`</span>
+<span class="n">vi</span> <span class="n">waukeen</span><span class="o">/</span><span class="n">hooks</span><span class="o">/</span><span class="n">pre</span><span class="o">-</span><span class="n">revprop</span><span class="o">-</span><span class="n">change</span>
+<span class="c1"># 给予钩子运行权限</span>
+<span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">PATH</span><span class="o">/</span><span class="n">hooks</span><span class="o">/</span><span class="n">pre</span><span class="o">-</span><span class="n">revprop</span><span class="o">-</span><span class="n">change</span>
+<span class="c1"># 为与另一个版本库的同步初始化目标版本库</span>
+<span class="n">svnsync</span> <span class="n">init</span> <span class="n">file</span><span class="p">:</span><span class="o">///</span><span class="n">PATH</span> <span class="n">svn</span><span class="p">:</span><span class="o">//</span><span class="n">SOURCE_URL</span>
+<span class="c1"># 进行同步</span>
+<span class="n">svnsync</span> <span class="n">sync</span> <span class="n">file</span><span class="p">:</span><span class="o">///</span><span class="n">PATH</span>
+</pre></div>
+</div>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id20" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="http://subversion.apache.org/faq.zh.html">Subversion FAQ</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="tomcat.html" class="btn btn-neutral float-right" title="Tomcat - java 容器" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="rsync.html" class="btn btn-neutral" title="Rsync - 文件同步" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

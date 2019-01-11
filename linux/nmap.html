@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>安装 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>安装</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/nmap.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <p>Nmap (Network Mapper)
+是一款开放源代码的网络探测和安全审核的工具。它的设计目标是快速地扫描大型网络，当然用它扫描单个主机也没有问题。Nmap以新颖的方式使用原始IP报文来发现网络上有哪些主机，那些主机提供什么服务(应用程序名和版本)，那些服务运行在什么操作系统(包括版本信息)，它们使用什么类型的报文过滤器/防火墙，以及一堆其它功能。Nmap通常用于安全审核，许多系统管理员和网络管理员也用它来做一些日常的工作，比如查看整个网络的信息，
+管理服务升级计划，以及监视主机和服务的运行。 <a class="footnote-reference" href="#id12" id="id1">[1]</a></p>
+<div class="section" id="id2">
+<h1>安装<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h1>
+<p><a class="reference external" href="debian">debian</a>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#&nbsp;apt-get&nbsp;install&nbsp;nmap</span></code></p>
+<p><a class="reference external" href="centos">centos</a>:</p>
+<p><code class="docutils literal notranslate"><span class="pre">#&nbsp;yum&nbsp;install&nbsp;nmap</span></code></p>
+</div>
+<div class="section" id="id3">
+<h1>语法<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">nmap&nbsp;[Scan&nbsp;Type(s)]&nbsp;``\</span> <span class="pre">***``[Options]``***\</span> <span class="pre">``&nbsp;{target&nbsp;specification}</span></code></p>
+<p>-v 显示更多信息</p>
+<p>-A 启用操作系统和版本检测，脚本扫描和路由跟踪</p>
+<p>-p 指定要扫描的端口</p>
+<p>-sV 探测开放的端口，以确定服务/版本信息</p>
+</div>
+<div class="section" id="id4">
+<h1>示例<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h1>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">#&nbsp;nmap&nbsp;-v&nbsp;-A&nbsp;-sV&nbsp;-p&nbsp;1-100&nbsp;google.com</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Starting&nbsp;Nmap&nbsp;6.00&nbsp;&nbsp;at&nbsp;2014-01-21&nbsp;17:40&nbsp;CST</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Nmap&nbsp;scan&nbsp;report&nbsp;for&nbsp;google.com&nbsp;(173.194.127.40)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Host&nbsp;is&nbsp;up&nbsp;(0.31s&nbsp;latency).</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Other&nbsp;addresses&nbsp;for&nbsp;google.com&nbsp;(not&nbsp;scanned):&nbsp;173.194.127.39&nbsp;173.194.127.37&nbsp;173.194.127.32&nbsp;173.194.127.33&nbsp;173.194.127.41&nbsp;173.194.127.36&nbsp;173.194.127.38&nbsp;173.194.127.35&nbsp;173.194.127.46&nbsp;173.194.127.34</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">rDNS&nbsp;record&nbsp;for&nbsp;173.194.127.40:&nbsp;hkg03s10-in-f8.1e100.net</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Not&nbsp;shown:&nbsp;99&nbsp;filtered&nbsp;ports</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">PORT&nbsp;&nbsp;&nbsp;STATE&nbsp;SERVICE&nbsp;VERSION</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">80/tcp&nbsp;open&nbsp;&nbsp;http&nbsp;&nbsp;&nbsp;&nbsp;Google&nbsp;httpd&nbsp;2.0&nbsp;(GFE)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">|_http-methods:&nbsp;No&nbsp;Allow&nbsp;or&nbsp;Public&nbsp;header&nbsp;in&nbsp;OPTIONS&nbsp;response&nbsp;(status&nbsp;code&nbsp;405)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">|&nbsp;http-robots.txt:&nbsp;248&nbsp;disallowed&nbsp;entries&nbsp;(15&nbsp;shown)</span></code></div>
+<div class="line"><a href="#id5"><span class="problematic" id="id6">``</span></a>|&nbsp;/search&nbsp;/sdch&nbsp;/groups&nbsp;/images&nbsp;/catalogs&nbsp;/catalogues&nbsp;``</div>
+<div class="line"><a href="#id7"><span class="problematic" id="id8">``</span></a>|&nbsp;/news&nbsp;/nwshp&nbsp;/setnewsprefs?&nbsp;/index.html?&nbsp;/?&nbsp;/?hl=*&amp;&nbsp;``</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">|_/addurl/image?&nbsp;/pagead/&nbsp;/relpage/</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">|_http-title:&nbsp;302&nbsp;Moved</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Warning:&nbsp;OSScan&nbsp;results&nbsp;may&nbsp;be&nbsp;unreliable&nbsp;because&nbsp;we&nbsp;could&nbsp;not&nbsp;find&nbsp;at&nbsp;least&nbsp;1&nbsp;open&nbsp;and&nbsp;1&nbsp;closed&nbsp;port</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Device&nbsp;type:&nbsp;specialized|WAP|media&nbsp;device</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Running&nbsp;(JUST&nbsp;GUESSING):&nbsp;Crestron&nbsp;2-Series&nbsp;(86%),&nbsp;Netgear&nbsp;embedded&nbsp;(86%),&nbsp;Western&nbsp;Digital&nbsp;embedded&nbsp;(86%)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">OS&nbsp;CPE:&nbsp;cpe:/o:crestron:2_series</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Aggressive&nbsp;OS&nbsp;guesses:&nbsp;Crestron&nbsp;XPanel&nbsp;control&nbsp;system&nbsp;(86%),&nbsp;Netgear&nbsp;DG834G&nbsp;WAP&nbsp;or&nbsp;Western&nbsp;Digital&nbsp;WD&nbsp;TV&nbsp;media&nbsp;player&nbsp;(86%)</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">No&nbsp;exact&nbsp;OS&nbsp;matches&nbsp;for&nbsp;host&nbsp;(test&nbsp;conditions&nbsp;non-ideal).</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Network&nbsp;Distance:&nbsp;12&nbsp;hops</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Service&nbsp;Info:&nbsp;OS:&nbsp;Linux;&nbsp;CPE:&nbsp;cpe:/o:linux:kernel</span></code></div>
+<div class="line"><a href="#id9"><span class="problematic" id="id10">``</span></a>OS&nbsp;and&nbsp;Service&nbsp;detection&nbsp;performed.&nbsp;``</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Nmap&nbsp;done:&nbsp;1&nbsp;IP&nbsp;address&nbsp;(1&nbsp;host&nbsp;up)&nbsp;scanned&nbsp;in&nbsp;45.90&nbsp;seconds</span></code></div>
+</div>
+</div>
+<div class="section" id="id11">
+<h1>参考文献<a class="headerlink" href="#id11" title="永久链接至标题">¶</a></h1>
+<references/><table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://www.tecmint.com/nmap-command-examples/">29 Practical Examples of Nmap Commands for Linux System/Network
+Administrators</a></td></tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

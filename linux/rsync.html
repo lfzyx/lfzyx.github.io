@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Rsync - 文件同步 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="SVN - 上一代版本控制系统" href="svn.html" />
+    <link rel="prev" title="PAM - 可插拔认证模块" href="pam.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Rsync - 文件同步</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">配置</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">服务端</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">客户端</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">语法</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Rsync - 文件同步</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/rsync.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="rsync">
+<h1>Rsync - 文件同步<a class="headerlink" href="#rsync" title="永久链接至标题">¶</a></h1>
+<p><a class="reference external" href="http://rsync.samba.org/documentation.html">Rsync</a>  是一个开源实用程序，提供快速的增量文件传输，
+并适当利用差分编码以减少数据传输量。在 daemon
+模式下，rsync监听873端口，通过rsync协议传输文件。在ssh模式下，通过ssh协议传输文件。</p>
+<div class="section" id="id2">
+<h2>安装<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">rsync</span></code></p>
+</div>
+<div class="section" id="id3">
+<h2>配置<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="id4">
+<h3>服务端<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">conf</span>
+
+<span class="c1">#motd file=/etc/motd</span>
+<span class="n">log</span> <span class="n">file</span><span class="o">=/</span><span class="n">var</span><span class="o">/</span><span class="n">log</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">log</span>
+<span class="n">pid</span> <span class="n">file</span><span class="o">=/</span><span class="n">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">pid</span>
+<span class="c1">#syslog facility=daemon</span>
+<span class="c1">#socket options=</span>
+<span class="p">[</span><span class="n">ftp</span><span class="p">]</span>
+       <span class="n">comment</span> <span class="o">=</span> <span class="n">public</span> <span class="n">archive</span>
+       <span class="n">path</span> <span class="o">=</span> <span class="n">PATH</span>
+       <span class="n">use</span> <span class="n">chroot</span> <span class="o">=</span> <span class="n">yes</span>
+<span class="c1">#      max connections=10</span>
+       <span class="n">lock</span> <span class="n">file</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">lock</span><span class="o">/</span><span class="n">rsyncd</span>
+       <span class="n">read</span> <span class="n">only</span> <span class="o">=</span> <span class="n">no</span>
+       <span class="nb">list</span> <span class="o">=</span> <span class="n">yes</span>
+       <span class="n">uid</span> <span class="o">=</span> <span class="n">nobody</span> <span class="n">和目录属主保持一致</span>
+       <span class="n">gid</span> <span class="o">=</span> <span class="n">nogroup</span> <span class="n">和目录属组保持一致</span>
+<span class="c1">#      exclude =</span>
+<span class="c1">#      exclude from =</span>
+<span class="c1">#      include =</span>
+<span class="c1">#      include from =</span>
+       <span class="n">auth</span> <span class="n">users</span> <span class="o">=</span>
+       <span class="n">secrets</span> <span class="n">file</span> <span class="o">=</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">secrets</span>
+       <span class="n">strict</span> <span class="n">modes</span> <span class="o">=</span> <span class="n">yes</span>
+       <span class="n">hosts</span> <span class="n">allow</span> <span class="o">=</span> <span class="n">ip地址</span>
+<span class="c1">#      hosts deny =</span>
+       <span class="n">ignore</span> <span class="n">errors</span> <span class="o">=</span> <span class="n">no</span>
+       <span class="n">ignore</span> <span class="n">nonreadable</span> <span class="o">=</span> <span class="n">yes</span>
+       <span class="n">transfer</span> <span class="n">logging</span> <span class="o">=</span> <span class="n">no</span>
+<span class="c1">#      log format = %t: host %h (%a) %o %f (%l bytes). Total %b bytes.</span>
+       <span class="n">timeout</span> <span class="o">=</span> <span class="mi">600</span>
+       <span class="n">refuse</span> <span class="n">options</span> <span class="o">=</span> <span class="n">checksum</span> <span class="n">dry</span><span class="o">-</span><span class="n">run</span>
+       <span class="n">dont</span> <span class="n">compress</span> <span class="o">=</span> <span class="o">*.</span><span class="n">gz</span> <span class="o">*.</span><span class="n">tgz</span> <span class="o">*.</span><span class="n">zip</span> <span class="o">*.</span><span class="n">z</span> <span class="o">*.</span><span class="n">rpm</span> <span class="o">*.</span><span class="n">deb</span> <span class="o">*.</span><span class="n">iso</span> <span class="o">*.</span><span class="n">bz2</span> <span class="o">*.</span><span class="n">tbz</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">secrets</span>
+<span class="n">user</span><span class="p">:</span><span class="n">userpasswd</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="mi">600</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">secrets</span>
+<span class="n">service</span> <span class="n">rsync</span> <span class="n">start</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>客户端<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">secrets</span>
+<span class="n">userpasswd</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="mi">600</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">secrets</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>语法<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">本地同步</span><span class="p">:</span>
+<span class="n">rsync</span> <span class="p">[</span><span class="n">OPTION</span><span class="o">...</span><span class="p">]</span> <span class="n">SRC</span><span class="o">...</span> <span class="n">DEST</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">通过远程</span> <span class="n">ssh</span><span class="p">:</span>
+<span class="n">Pull</span><span class="p">:</span>
+<span class="n">rsync</span> <span class="p">[</span><span class="n">OPTION</span><span class="o">...</span><span class="p">]</span> <span class="p">[</span><span class="n">USER</span><span class="o">@</span><span class="p">]</span><span class="n">HOST</span><span class="p">:</span><span class="n">SRC</span><span class="o">...</span> <span class="n">DEST</span>
+<span class="n">Push</span><span class="p">:</span>
+<span class="n">rsync</span> <span class="p">[</span><span class="n">OPTION</span><span class="o">...</span><span class="p">]</span> <span class="n">SRC</span><span class="o">...</span> <span class="p">[</span><span class="n">USER</span><span class="o">@</span><span class="p">]</span><span class="n">HOST</span><span class="p">:</span><span class="n">DEST</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">通过</span> <span class="n">rsync</span> <span class="n">服务器</span><span class="p">:</span>
+<span class="n">Pull</span><span class="p">:</span>
+<span class="n">rsync</span> <span class="p">[</span><span class="n">OPTION</span><span class="o">...</span><span class="p">]</span> <span class="p">[</span><span class="n">USER</span><span class="o">@</span><span class="p">]</span><span class="n">HOST</span><span class="p">::</span><span class="n">SRC</span><span class="o">...</span> <span class="n">DEST</span>
+<span class="n">rsync</span> <span class="p">[</span><span class="n">OPTION</span><span class="o">...</span><span class="p">]</span> <span class="n">rsync</span><span class="p">:</span><span class="o">//</span><span class="p">[</span><span class="n">USER</span><span class="o">@</span><span class="p">]</span><span class="n">HOST</span><span class="p">[:</span><span class="n">PORT</span><span class="p">]</span><span class="o">/</span><span class="n">SRC</span><span class="o">...</span> <span class="n">DEST</span>
+<span class="n">Push</span><span class="p">:</span>
+<span class="n">rsync</span> <span class="p">[</span><span class="n">OPTION</span><span class="o">...</span><span class="p">]</span> <span class="n">SRC</span><span class="o">...</span> <span class="p">[</span><span class="n">USER</span><span class="o">@</span><span class="p">]</span><span class="n">HOST</span><span class="p">::</span><span class="n">DEST</span>
+<span class="n">rsync</span> <span class="p">[</span><span class="n">OPTION</span><span class="o">...</span><span class="p">]</span> <span class="n">SRC</span><span class="o">...</span> <span class="n">rsync</span><span class="p">:</span><span class="o">//</span><span class="p">[</span><span class="n">USER</span><span class="o">@</span><span class="p">]</span><span class="n">HOST</span><span class="p">[:</span><span class="n">PORT</span><span class="p">]</span><span class="o">/</span><span class="n">DEST</span>
+</pre></div>
+</div>
+<p>-r 递归地同步目录</p>
+<p>-l 保持符号链接文件</p>
+<p>-p 保持文件权限</p>
+<p>-t 保持文件时间信息</p>
+<p>-g 保持文件属组信息
+（如果运行rsync操作的不是超级用户，则仅当调用rsync操作的用户属于源文件属组成员时，才保持属组信息）</p>
+<p>-o 保持文件属主信息 (super-user only)</p>
+<p>-D 保持设备文件和特殊文件 (super-user only)</p>
+<p>-a 归档模式，相当于 -rlptgoD</p>
+<p>-v 输出详情</p>
+<p>-z 开启压缩</p>
+<p>–compress-level=NUM 明确设置压缩级别</p>
+<p>-P 显示进度和断点传续</p>
+<p>-e 使用ssh和ssh语法</p>
+<p>-H 保持文件的硬链接特性</p>
+<p>-L 遇到符号链接时，同步该符号链接所指向的文件，而不是该符号链接</p>
+<p>-u 排除被修改过的目的文件</p>
+<p>–delete 在DEST删除SRC没有的文件</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="svn.html" class="btn btn-neutral float-right" title="SVN - 上一代版本控制系统" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="pam.html" class="btn btn-neutral" title="PAM - 可插拔认证模块" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

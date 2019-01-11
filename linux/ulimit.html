@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ulimit - 用户资源控制 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Iftop - 监控实时流量" href="iftop.html" />
+    <link rel="prev" title="Tomcat - java 容器" href="tomcat.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tripwire.html">Tripwire - 文件完整性检查</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Ulimit - 用户资源控制</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">语法</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">示例</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Ulimit - 用户资源控制</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/ulimit.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ulimit">
+<h1>Ulimit - 用户资源控制<a class="headerlink" href="#ulimit" title="永久链接至标题">¶</a></h1>
+<p>在支持它的系统上，对 shell 和它启动的进程，提供对可用资源的控制。选项 -H
+和 -S
+指定为所给资源设定的硬性和柔性限额。软限制是指在当前系统能够承受的范围内进一步限制用户同时打开的文件数；硬限制则是根据系统硬件资源状况(主要是系统内存)计算出来的系统最多可同时打开的文件数量。如果没有给出
+-H 或 -S 选项，将同时设置硬性和柔性限额。limit
+的值可以是一个数字，单位是指定资源的单元值，或者是特殊值 hard, soft, 或
+unlimited
+之一，意思分别是当前硬性限额，当前柔性限额和没有限额。如果忽略了
+limit，将打印出当前对资源的柔性限额值， -H
+选项打印出当前的硬性限制。当指定多于一个资源时，限额名称和单位将在值之前打印出来。</p>
+<div class="section" id="id1">
+<h2>语法<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p>-H 硬限制</p>
+<p>-S 软限制</p>
+<p>-a 显示所有限额</p>
+<p>-c core文件上限</p>
+<p>-d 进程数据段上限</p>
+<p>-e scheduling priority上限</p>
+<p>-f shell所能创建的文件大小的上限</p>
+<p>-i 等待信号上限</p>
+<p>-l 锁定内存上限</p>
+<p>-m 驻留内存大小的上限</p>
+<p>-n 打开文件数的上限</p>
+<p>-p 管道大小上限</p>
+<p>-q POSIX消息上限</p>
+<p>-r</p>
+<p>-s 堆栈大小的上限</p>
+<p>-t 每秒可占用的CPU时间上限</p>
+<p>-u 进程数的上限</p>
+<p>-v 虚拟内存的上限</p>
+<p>-x 锁定文件上限</p>
+</div>
+<div class="section" id="id2">
+<h2>配置<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>/etc/security/limits.conf</li>
+</ul>
+<p>Linux系统用户级打开文件数的软限制和硬限制</p>
+<p>&lt;domain&gt; &lt;type&gt; &lt;item&gt; &lt;value&gt;</p>
+<p>&lt;domain&gt; : 需要被限制的用户名，组名前面加&#64;，用通配符*匹配所有用户，root用户需要单独指定</p>
+<p>&lt;type&gt; : soft 是软限制。hard 是硬限制，soft 的限制不能比 hard 限制高</p>
+<p>&lt;item&gt; :</p>
+<p>core - 限制内核文件的大小</p>
+<p>date - 最大数据大小</p>
+<p>fsize - 最大文件大小</p>
+<p>memlock - 最大锁定内存地址空间</p>
+<p>nofile - 打开文件的最大数目</p>
+<p>rss - 最大持久设置大小</p>
+<p>stack - 最大栈大小</p>
+<p>cpu - 以分钟为单位的最多 CPU 时间</p>
+<p>noproc - 进程的最大数目</p>
+<p>as - 地址空间限制</p>
+<p>maxlogins - 此用户允许登录的最大数目</p>
+</div>
+<div class="section" id="id3">
+<h2>示例<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<p>设置用户tomcat打开文件的最大数目限额</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tomcat</span> <span class="n">soft</span> <span class="n">nofile</span> <span class="mi">10240</span>
+<span class="n">tomcat</span> <span class="n">hard</span> <span class="n">nofile</span> <span class="mi">10240</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="iftop.html" class="btn btn-neutral float-right" title="Iftop - 监控实时流量" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="tomcat.html" class="btn btn-neutral" title="Tomcat - java 容器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

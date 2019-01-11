@@ -1,0 +1,359 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Tripwire - 文件完整性检查 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Sysstat - 系统性能分析套件" href="sysstat/index.html" />
+    <link rel="prev" title="Audit - 安全审计" href="audit.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Linux</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="kvm.html">KVM - 虚拟化解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemd.html">Systemd - 系统启动管理</a></li>
+<li class="toctree-l2"><a class="reference internal" href="audit.html">Audit - 安全审计</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Tripwire - 文件完整性检查</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">安装</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">配置</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">使用</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tw-pol">调整策略文件tw.pol</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tw-cfg">调整配置文件tw.cfg</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">初始化数据库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id5">进行检测</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">读取检测结果</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id7">更新数据库</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id8">更新策略文件tw.pol</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sysstat/index.html">Sysstat - 系统性能分析套件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nginx.html">Nginx - 高性能 web 服务器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="crontab.html">Crontab - 周期性任务</a></li>
+<li class="toctree-l2"><a class="reference internal" href="keepalived.html">Keepalived - 高可用解决方案</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsof.html">Lsof - 列出打开的文件</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pxe.html">PXE - 预启动执行环境</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openldap.html">OpenLDAP - LDAP 协议的开源实现</a></li>
+<li class="toctree-l2"><a class="reference internal" href="nfs.html">NFS - 分布式文件系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="openssh/index.html">Openssh - 安全传输协议</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pam.html">PAM - 可插拔认证模块</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rsync.html">Rsync - 文件同步</a></li>
+<li class="toctree-l2"><a class="reference internal" href="svn.html">SVN - 上一代版本控制系统</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tomcat.html">Tomcat - java 容器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ulimit.html">Ulimit - 用户资源控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="iftop.html">Iftop - 监控实时流量</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mongodb.html">MongoDB - 文档数据库</a></li>
+<li class="toctree-l2"><a class="reference internal" href="filters/index.html">Filter - 流过滤器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Unix-commands/index.html">Unix 实用程序列表</a></li>
+<li class="toctree-l2"><a class="reference internal" href="hardware/index.html">Hardware - 查询硬件信息</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Linux</a> &raquo;</li>
+        
+      <li>Tripwire - 文件完整性检查</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/tripwire.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="tripwire">
+<span id="index-0"></span><h1>Tripwire - 文件完整性检查<a class="headerlink" href="#tripwire" title="永久链接至标题">¶</a></h1>
+<p>Tripwire 是一个文件完整性检查程序，用于监控指定文件是否变更，这些变更包含（但不限于）:</p>
+<ul class="simple">
+<li>inode</li>
+<li>时间戳</li>
+<li>文件大小</li>
+<li>文件权限和所有权属性</li>
+<li>哈希值</li>
+<li>文件类型</li>
+</ul>
+<p>初始化时，Tripwire
+扫描文件系统，把每个文件的校验值存储到数据库中，建立正常文件的基线，下一次扫描时，将文件的校验值和数据库中的校验值进行对比，如果校验值不一样，它会通过电子邮件警报或日志报告任何异常情况。</p>
+<div class="section" id="id1">
+<h2>安装<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;tripwire</span></code></p>
+<p>安装期间需要配置密码，Site passphrase 用于加密 tw.cfg 和 tw.pol ，Local
+passphrase 用于加密数据库和 report 文件</p>
+</div>
+<div class="section" id="id2">
+<h2>配置<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>tw.cfg&nbsp;是&nbsp;Tripwire&nbsp;的加密配置文件，twcfg.txt&nbsp;则是该文件未加密的状态</li>
+<li>tw.pol&nbsp;是&nbsp;Tripwire&nbsp;的加密策略文件，twpol.txt&nbsp;则是该文件未加密的状态</li>
+<li>local.key&nbsp;是本地密钥，用于保护数据库</li>
+<li>site.key&nbsp;是站点密钥，用于保护tw.cfg&nbsp;和&nbsp;tw.pol</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>使用<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<div class="section" id="tw-pol">
+<h3>调整策略文件tw.pol<a class="headerlink" href="#tw-pol" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">vi</span>  <span class="n">twpol</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">twadmin</span> <span class="o">--</span><span class="n">create</span><span class="o">-</span><span class="n">polfile</span> <span class="o">--</span><span class="n">polfile</span> <span class="n">tw</span><span class="o">.</span><span class="n">pol</span> <span class="o">-</span><span class="n">S</span> <span class="n">site</span><span class="o">.</span><span class="n">key</span> <span class="n">twpol</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+<p>显示策略文件</p>
+<p><code class="docutils literal notranslate"><span class="pre">twadmin&nbsp;--print-polfile</span></code></p>
+</div>
+<div class="section" id="tw-cfg">
+<h3>调整配置文件tw.cfg<a class="headerlink" href="#tw-cfg" title="永久链接至标题">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>``vi twcfg.txt``
+``twadmin --create-cfgfile --cfgfile tw.cfg -S site.key twcfg.txt``
+</pre></div>
+</div>
+<p>显示配置文件</p>
+<p><code class="docutils literal notranslate"><span class="pre">twadmin&nbsp;--print-cfgfile</span></code></p>
+</div>
+<div class="section" id="id4">
+<h3>初始化数据库<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">tripwire&nbsp;--init</span></code></p>
+<p>初始化结束后，会在 /var/lib/tripwire/ 生成数据库</p>
+</div>
+<div class="section" id="id5">
+<h3>进行检测<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">tripwire&nbsp;--check</span></code></p>
+<p>检测结束后，会在/var/lib/tripwire/report/ 生成检测报告</p>
+</div>
+<div class="section" id="id6">
+<h3>读取检测结果<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">twprint&nbsp;--print-report&nbsp;-r&nbsp;/var/lib/tripwire/report/*.twr</span></code></p>
+</div>
+<div class="section" id="id7">
+<h3>更新数据库<a class="headerlink" href="#id7" title="永久链接至标题">¶</a></h3>
+<p>如果文件的变更是正常的，那么应该更新数据库来忽略这次变更</p>
+<p><code class="docutils literal notranslate"><span class="pre">tripwire&nbsp;--update&nbsp;-r&nbsp;/var/lib/tripwire/report/*.twr</span></code></p>
+<p>执行该命令之后，您就进入了一个编辑器。搜索所报告的文件名。所有侵害或更新都在文件名前面有一个
+[x]。</p>
+<p>如果您希望接受这些更改为正当的，则只需保存退出文件即可。Tripwire
+不再报告此文件。如果您想要这个文件不被添加到数据库，那么请删除 ‘x’。</p>
+<p>保存文件并退出编辑器时，若有数据库更新发生，会提示您输入密码以完成该过程。如果没有更新发生，那么
+Tripwire 会通知您的，并且不需要输入密码。</p>
+</div>
+<div class="section" id="id8">
+<h3>更新策略文件tw.pol<a class="headerlink" href="#id8" title="永久链接至标题">¶</a></h3>
+<p>策略文件的后续更新应该采取如下形式</p>
+<p><code class="docutils literal notranslate"><span class="pre">tripwire&nbsp;--update-policy&nbsp;--secure-mode&nbsp;low&nbsp;twpol.txt</span></code></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="sysstat/index.html" class="btn btn-neutral float-right" title="Sysstat - 系统性能分析套件" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="audit.html" class="btn btn-neutral" title="Audit - 安全审计" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

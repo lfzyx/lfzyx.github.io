@@ -1,0 +1,313 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Continuous Integration - 持续集成方法 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="GoCD - 持续交付流水线" href="gocd.html" />
+    <link rel="prev" title="DevOps" href="index.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">DevOps</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Continuous Integration - 持续集成方法</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id2">原则</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">集成过程</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">优点</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="gocd.html">GoCD - 持续交付流水线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="elasticstack.html">Elastic Stack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="goaccess.html">GoAccess - nginx 日志分析</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kubernetes.html">Kubernetes -  自动化的容器部署、扩展和管理</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../linux/index.html">Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">DevOps</a> &raquo;</li>
+        
+      <li>Continuous Integration - 持续集成方法</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/devops/continuousintegration.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="continuous-integration">
+<h1>Continuous Integration - 持续集成方法<a class="headerlink" href="#continuous-integration" title="永久链接至标题">¶</a></h1>
+<p>持续集成(continuous integration)是软件工程中的一种实践，用于每天多次合并所有开发工作副本至一个共享的主线。
+这个术语源自极限编程(extreme programming)的一个最佳实践，主要目的是防止积累问题。
+持续集成可以看作是早期迭代增量式开发所主张的定期集成实践。 <a class="footnote-reference" href="#id5" id="id1">[1]</a></p>
+<div class="section" id="id2">
+<h2>原则<a class="headerlink" href="#id2" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>单一代码库：项目源代码存放于一个版本控制系统，
+让所有人都能从这里获取最新的源代码.持续集成提倡开发人员频繁提交修改过的源代码。
+可以用最新的检出构建系统，并且不需要额外的依赖，减少分支，使用集成代替维持多个软件版本。</li>
+<li>自动构建：一个简单的命令就可以构建系统。自动化构建包括自动化集成，自动部署。
+在许多情况下，构建脚本不仅仅编译二进制文件，同时还生成文档、网页、统计和分发介质。</li>
+<li>自动测试：一旦代码构建完成，自动运行所有测试以确定符合期望。</li>
+<li>每人每天提交代码至主线：通过定期提交，每个提交者可以减少修改代码带来的冲突。
+传统开发模式中，开发进行到特定阶段后再集成到一起进行测试，但很多Bug在项目早期就存在了，
+如果在最后集成的时候才发现问题，开发者需要在集成阶段花费大量的时间来定位Bug。
+但如果尽早检查，系统中的一小部分冲突可以使团队成员尽早沟通。
+建议至少一天一次提交所有更改，进行自动构建与自动测试的检验，以尽快发现集成错误。
+对于持续集成来说，集成越频繁，效果越好。</li>
+<li>每次提交的代码可以被构建：为了验证是否正确集成，每次提交至当前工作版本的代码应该可以被构建。
+持续集成服务器监控版本控制系统，一旦有变化，构建会自动进行。</li>
+<li>保持快速构建</li>
+<li>复制生产环境进行测试：有测试环境可能会导致系统部署到生产环境时失败，因为生产环境和测试环境有很多不同。</li>
+<li>简单的获取最新成果</li>
+<li>每个人都可以看到最新版本的结果</li>
+<li>自动部署：许多持续集成系统允许构建完成后运行脚本，脚本用于发布系统到测试环境，使每个人可以看到成果。进一步可以在生产环境中自动化部署。</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h2>集成过程<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h2>
+<ol class="arabic simple">
+<li>开发人员从源代码仓库检出最新程序</li>
+<li>开发人员编写代码、测试用例，并提交更新结果给版本控制仓库</li>
+<li>持续集成服务器根据触发条件，从版本控制仓库检出最新代码，进行编译、测试，并进行打包，如有必要，实现产品部署、发布</li>
+<li>开发人员检查集成过程中出现的问题</li>
+</ol>
+</div>
+<div class="section" id="id4">
+<h2>优点<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h2>
+<ul class="simple">
+<li>易于定位错误。也就是当你的持续集成失败了，说明你新加的代码或者修改的代码引起了错误，这样你很容易的就可以知道到底是谁犯了错误</li>
+<li>及早在项目里取得系统级的成果。因为代码已经被集成起来了，所以即使整个系统还不是那么可用，但至少你和你的团队都已经可以看到它已经在那了</li>
+<li>改善对进度的控制。这点非常明显，每天都可以看到哪些功能可以使用，哪些功能还没有实现</li>
+<li>更加充分地测试系统中的各个单元</li>
+<li>能在更短的时间里建造整个系统</li>
+<li>有助于项目的开发数据的收集</li>
+<li>与其它工具结合的持续代码质量改进</li>
+<li>与测试工具或者框架结合的持续测试</li>
+<li>便于Code Review</li>
+<li>便于开发流程的管理</li>
+</ul>
+<p class="rubric">参考文献</p>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://en.wikipedia.org/wiki/Continuous_integration">Continuous integration</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="gocd.html" class="btn btn-neutral float-right" title="GoCD - 持续交付流水线" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="DevOps" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

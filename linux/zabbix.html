@@ -1,0 +1,373 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>简介 &mdash; A place to learn about devops, linux, python, life, and much more.</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="apple-touch-icon" sizes="180x180" href="_static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="_static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="_static/favicon-16x16.png">
+  <link rel="manifest" href="_static/site.webmanifest">
+  <link rel="mask-icon" href="_static/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="_static/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="_static/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132355237-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-132355237-1');
+  </script>
+
+
+
+ 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> lfzyx
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../devops/index.html">DevOps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/index.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../c/index.html">C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../life/index.html">Life</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lfzyx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>简介</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/lfzyx/lfzyx.org/blob/master/linux/zabbix.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="id1">
+<h1>简介<a class="headerlink" href="#id1" title="永久链接至标题">¶</a></h1>
+<p>Zabbix 是由 Alexei Vladishev 开发的一种网络监视、管理系统，基于
+Server-Client
+架构。可用于监视各种网络服务、服务器和网络机器等状态。 <a class="footnote-reference" href="#id7" id="id2">[1]</a></p>
+<p>使用各种 Database-end 如 MySQL, PostgreSQL, SQLite, Oracle 或 IBM DB2
+储存资料。Server 端基于 C语言、Web 管理端 frontend 则是基于 PHP
+所制作的。Zabbix 提供多种方式监视：</p>
+<ul class="simple">
+<li>可以只使用 Simple Check 不需要安装 Client 端，基于 SMTP 或 HTTP
+等协议验证可用性。</li>
+<li>在需要监控的机器上安装 Zabbix agent 来监控 CPU load, network
+utilization, disk space 等等</li>
+<li>作为安装 agent 的替代，Zabbix 支持通过 SNMP, TCP and ICMP 协议，用
+IPMI、SSH、telnet 对目标进行监控</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h1>架构<a class="headerlink" href="#id3" title="永久链接至标题">¶</a></h1>
+<p>Zabbix包含如下组件</p>
+<div class="section" id="server">
+<h2>Server<a class="headerlink" href="#server" title="永久链接至标题">¶</a></h2>
+<p>Zabbix server
+是Zabbix软件的中心进程，用来获取agent存活状况及监控数据和统计.
+所有的配置、统计、操作数据均通过Server进行存取.</p>
+<p>Server
+执行polling和trapping来采集数据，评估是否触发触发器，发送报警给用户.</p>
+<p>Server
+是所有配置、统计和操作数据的中心存储仓库，也是在所有的监控系统中扮演故障发生时通知管理员的角色.</p>
+<p>基础 server依据功能不同划分为三个部分，分别为:Zabbix
+server、web前端及数据库.</p>
+<p>由于Zabbix的所有的配置信息保存在数据库中，server和web前端可以直接进行操作。比如，通过web前端(或者API)创建一个新的监控项时，它将创建的数据插入数据库。一分钟左右Zabbix
+server会查询监控项数据表，并将查询的监控项
+列表保存在自己的缓存(cache)中。这也是为什么通过Zabbix前端进行的变更将在两分钟左右生效.</p>
+</div>
+<div class="section" id="database-storage">
+<h2>Database storage<a class="headerlink" href="#database-storage" title="永久链接至标题">¶</a></h2>
+<p>所有信息存放在数据库</p>
+</div>
+<div class="section" id="web-interface">
+<h2>Web interface<a class="headerlink" href="#web-interface" title="永久链接至标题">¶</a></h2>
+<p>web接口. 该接口作为Zabbix
+Server的一部分，通常和server运行在同一台主机上.</p>
+</div>
+<div class="section" id="proxy">
+<h2>Proxy<a class="headerlink" href="#proxy" title="永久链接至标题">¶</a></h2>
+<p>Zabbix代理(proxy)通常用于替代server完成对多个监控设备收集监控信息并将数据发送给Zabbix
+server. 所有的收集数据会先存储在代理本地缓存中然后传送给Zabbix server.</p>
+<p>代理是可选的,不过使用它可以有效的降低在分布式环境中单一的Zabbix
+server负载. 通过代理去收集收集，server可以有效降低CPU和磁盘I/O消耗.</p>
+<p>Zabbix代理可以出色的完成远程区域、分支机构、没有本地管理员的网络的集中监控.</p>
+<p>Zabbix代理使用独立的数据库.</p>
+</div>
+<div class="section" id="agents">
+<h2>Agents<a class="headerlink" href="#agents" title="永久链接至标题">¶</a></h2>
+<p>Zabbix agent 部署在目标监控机上并监控本地资源和应用.</p>
+<p>Zabbix agent 聚合本地的运行信息并将数据发送给Zabbix server以进一步处理.
+一旦出现异常(如硬盘空间满的情况或者服务进行宕掉), Zabbix
+server将会发送告警给管理员报告本次异常.</p>
+<p>Zabbix agent利用本地系统调用完成统计信息收集，因此它非常的高效.</p>
+<p>Zabbix agent提供被动和主动检查方式.在 被动检查
+模式中agent应答数据请求，Zabbix server或者proxy询问agent数据,如CPU load,
+然后Zabbix agent回送结果给server.主动检查 处理过程将相对复杂.
+agent必须首先进行一次请求Zabbix
+server索取监控项列表，然后发送对应的值给server.选择是被动还是主动检查，需要在
+监控项类型 中选择’Zabbix agent’或者’Zabbix agent (active)’.</p>
+</div>
+<div class="section" id="data-flow">
+<h2>Data flow<a class="headerlink" href="#data-flow" title="永久链接至标题">¶</a></h2>
+<p>了解 zabbix
+内部整个数据流是非常重要的。为了创建一个收集数据的项目，必须首先创建一个主机，在这之前必须要创建触发器，必须有一个触发器来创建一个动作。因此，如果您希望收到服务器CPU加载过高的报警，需要创建一个主机条目，并且跟随一个CPU警报条目，这样在CPU过高的时候，触发器会被触发，并发送电子邮件。看起来步骤很多，但如果使用模版，就很方便了。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h1>释义<a class="headerlink" href="#id4" title="永久链接至标题">¶</a></h1>
+<ul class="simple">
+<li>host 一个你想监控的网络设备(需要知道IP/DNS)</li>
+<li>host group 一个逻辑的主机群组，它包含主机和模板。
+主机和模板在同一个主机群组内的话模板不能被互相linked。
+主机组通常用于给不同的用户组创建访问权限</li>
+<li>item 你想从主机中收集到的数据</li>
+<li>trigger
+一个逻辑表达式，用来表达从监控项获取的数据达到了预设的问题阀值，当接收到的监控值达到了预设的阀值，则触发器状态由’OK’变更为’Problem’，当收到的监控值低于阀值，则状态保持/变更为’OK’.</li>
+<li>event 一个事情发生，如触发器状态变更或一个自动发现/agent自动注册等</li>
+<li>action
+当一个事件发生时预设的处理过程，一个动作(action)包括操作(operations，如发送告警)和条件(当指定的操作完成)</li>
+<li>escalation
+在动作中一个自定的操作执行过程，一个发送告警/执行远程命令的队列</li>
+<li>media 发送告警的渠道</li>
+<li>notification 通过媒介(media)渠道发送事件的消息</li>
+<li>remote command
+当监控主机达到某些条件(condition)后预设的自动执行的命令</li>
+<li>template
+一组包含监控项、触发器、绘图、面板(screen)、应用、低级别自动发现规则等并且能被其他主机应用的实体。模板能够提升主机部署监控任务的速度，同时也非常容易对监控任务做批量(mass)更新。</li>
+<li>application 监控项逻辑组</li>
+<li>web scenario 对一个web站点可用性进行检查的一个或多个http请求</li>
+<li>Zabbix API允许通过JSON
+RPC协议去创建、更新、获得Zabbix对象(如主机、监控项、绘图等等)以及完成自定义任务</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h1>安装<a class="headerlink" href="#id5" title="永久链接至标题">¶</a></h1>
+<div class="section" id="zabbix-server">
+<h2>Zabbix server<a class="headerlink" href="#zabbix-server" title="永久链接至标题">¶</a></h2>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">wget&nbsp;``\</span> <span class="pre">```http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</span></code> &lt;<a class="reference external" href="http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb">http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-1+trusty_all.deb</a>&gt;`__</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">dpkg&nbsp;-i&nbsp;zabbix-release_3.0-1+trusty_all.deb</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;update</span></code></div>
+</div>
+<ul class="simple">
+<li>Zabbix server with web frontend , mysql database.</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">apt-get&nbsp;install&nbsp;zabbix-server-mysql&nbsp;zabbix-frontend-php</span></code></p>
+<ul class="simple">
+<li>初始化数据库</li>
+</ul>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">mysql&nbsp;-uroot&nbsp;-p</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">create&nbsp;database&nbsp;zabbix&nbsp;character&nbsp;set&nbsp;utf8&nbsp;collate&nbsp;utf8_bin;</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">grant&nbsp;all&nbsp;privileges&nbsp;on&nbsp;zabbix.*&nbsp;to&nbsp;zabbix&#64;localhost&nbsp;identified&nbsp;by&nbsp;'</span></code><code class="docutils literal notranslate"><span class="pre">';</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">exit;</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">cd&nbsp;/usr/share/doc/zabbix-server-mysql</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">zcat&nbsp;create.sql.gz&nbsp;|&nbsp;mysql&nbsp;-uroot&nbsp;zabbix</span></code></div>
+</div>
+<ul class="simple">
+<li>zabbix_server.conf</li>
+</ul>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">vi&nbsp;/etc/zabbix/zabbix_server.conf</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">DBHost=localhost</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">DBName=zabbix</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">DBUser=zabbix</span></code></div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">DBPassword=zabbix</span></code></div>
+</div>
+</div>
+</div>
+<div class="section" id="id6">
+<h1>参考文献<a class="headerlink" href="#id6" title="永久链接至标题">¶</a></h1>
+<references/><table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td><a class="reference external" href="https://en.wikipedia.org/wiki/Zabbix">Zabbix - Wikipedia, the free
+encyclopedia</a></td></tr>
+</tbody>
+</table>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017-2019, lfzyx zhou
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
